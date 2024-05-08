@@ -1,3 +1,129 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+:root{
+    --ui-min-width: 1000px;
+    --standard-border-radius: 5px;
+    --user-input-background-color: rgb(177, 123, 123);
+    --user-input-text-color: black;
+    --user-font-size: 30px;
+}
+
+.user-area{
+    background-color: violet;  //da eliminare
+
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    //left: 50%;
+    //transform: translateX(-50%);
+    margin: 0px;
+    
+    height: 10%;
+    width: 100%;
+    min-width: var(--ui-min-width);
+    bottom: 5%;
+
+    z-index: 999; /*sempre in primo piano*/
+
+    /*responsibilità*/
+    @media (max-width: 1200px) {    /*font size da un minimo di 10px fino ad un massimo di calc(10px+1vm) con laghezza massima 1200px*/
+        font-size: calc(10px + 1vw);
+    }
+    @media (min-width: 1201px) {    /*font size da 22px per laghezze maggiori di 1200px*/
+        font-size: 22px; 
+    }
+    
+    //width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
+    //min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
+
+    padding: 3px;  //da eliminare
+    
+    gap: 10px;
+}
+
+.input-grid{
+    background-color: yellow;  //da eliminare
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 5px;
+    //width: 100%;
+    margin: 5px 20% 5px 20%;
+
+    width: fit-content;
+    height: 100%;
+
+    padding: 3px;
+}
+
+#user-input{
+    background-color: var(--user-input-background-color);
+    backdrop-filter: blur(10%);
+    color: var(--user-input-text-color);
+    font-size: var(--user-font-size);
+    
+    //margin: 5px 20% 5px 20%;
+    margin: 0px;
+    padding: 10px;
+    border: 0px;
+    border-radius: 20px;
+    /* height: 80px; */
+    width: fit-content;
+    flex-grow: 1;
+    resize: none;
+}
+#user-input:focus{
+    border: 0px;
+    outline: none;
+}
+#user-input::placeholder{
+    color: rgb(170, 170, 170);
+}
+
+.commands-grid{
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    
+    aspect-ratio: 1;
+    //margin: 0px;
+    gap: 5px;
+    padding: 3px;
+    height: 100%;
+    width: fit-content;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-button{
+    background-color: rgba(50, 50, 50, 1);
+    backdrop-filter: blur(10%);
+    background-position: center center;
+    background-repeat: no-repeat;
+    //background-size: 32px;
+    color: white;
+    padding: 3px;
+    border: 3px solid orangered;
+    border-radius: var(--standard-border-radius);
+
+    width: 30px;
+    height: 50%;
+}
+
+.input-button{
+    aspect-ratio: 1;
+    flex-grow: 1;
+}
+
+#send{
+    background-image: url('../images/send.svg');
+}
