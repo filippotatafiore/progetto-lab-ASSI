@@ -1,13 +1,16 @@
 <h1>Homepage</h1>
 
 <div class="user-area">
-    <div class="input-grid">
-        <textarea placeholder="Benvenuto! Chiedimi quello che vuoi" id="user-input"></textarea>
+        <div class="user-input-container">
+            <textarea placeholder="Benvenuto! Chiedimi quello che vuoi" id="user-input"></textarea>
+        </div>
         
         <div class="commands-grid">
-            <button type="button" class="ui-button input-button" id="send"></button>
-            <button type="button" class="ui-button input-button" id="newchat"></button>
-            <button type="button" class="ui-button input-button" id="more"></button>
+            <button type="button" class="button input-button" id="send">
+                <%= image_tag('send.svg', alt: "") %>
+            </button>
+            <button type="button" class="button input-button" id="newchat"></button>
+            <button type="button" class="button input-button" id="more"></button>
         </div>
-    </div>
+        
 </div>
