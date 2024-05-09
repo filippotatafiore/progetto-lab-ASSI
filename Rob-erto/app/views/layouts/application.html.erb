@@ -15,10 +15,10 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
-  <body>
+  <body class="<%= @theme %>">
     <header>
       <!--  ----------------------------------------Navbar----------------------------------------  -->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" id="NavBar">
 
         <div class="container-fluid" id="navbar-id">
 
@@ -31,6 +31,7 @@
 
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
               <li class="nav-item">
@@ -49,12 +50,22 @@
                 <a class="nav-link" href="">Help</a>
               </li>
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Impostazioni
-                </a>
+            </ul>
+            
+
+            <div class="settings-container">
+              <li class="btn-group dropstart">
+                <button class="btn nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= image_tag('settings.svg', alt: "", class: "icon-img") %>
+                </button>
+
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Tema</a></li>
+                  <li><button class="dropdown-item" id="theme-switcher">
+                    <%= link_to 'day', root_path(theme: :light) %>
+                  </button></li>
+                  <li><button class="dropdown-item" id="theme-switcher">
+                    <%= link_to 'night', root_path(theme: :dark) %>
+                  </button></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Sfondo chat</a></li>
                   <li><a class="dropdown-item" href="#">Colore chatbox</a></li>
@@ -62,9 +73,10 @@
                   <li><a class="dropdown-item" href="#">Colore font</a></li>
                 </ul>
               </li>
+            </div>
 
-            </ul>
           </div>
+          
 
         </div>
       </nav>
@@ -74,4 +86,5 @@
     <%= yield %>
 
   </body>
+
 </html>
