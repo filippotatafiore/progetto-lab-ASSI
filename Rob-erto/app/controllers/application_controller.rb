@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
-    def index
-        # ------------------------------------------------tema app
+    before_action :set_theme
+
+    # ------------------------------------------------------------------ tema app
+    def set_theme
         if params[:theme].present?
             @theme = params[:theme] 
         else
             @theme = 'light'
         end
     end
+
 
 end

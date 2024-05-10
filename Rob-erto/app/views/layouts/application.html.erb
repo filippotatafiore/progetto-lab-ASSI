@@ -60,12 +60,13 @@
                 </button>
 
                 <ul class="dropdown-menu">
-                  <li><button class="dropdown-item" id="theme-switcher">
-                    <%= link_to 'day', root_path(theme: :light) %>
-                  </button></li>
-                  <li><button class="dropdown-item" id="theme-switcher">
-                    <%= link_to 'night', root_path(theme: :dark) %>
-                  </button></li>
+                  <li>
+                    <% if @theme == 'dark' %>
+                      <%= link_to image_tag('sun.svg', alt: ""), root_path(theme: 'light'), class: "btn dropdown-item" %>
+                    <% else %>
+                      <%= link_to image_tag('moon.svg', alt: ""), root_path(theme: 'dark'), class: "btn dropdown-item" %>
+                    <% end %>
+                  </li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Sfondo chat</a></li>
                   <li><a class="dropdown-item" href="#">Colore chatbox</a></li>
@@ -81,6 +82,7 @@
         </div>
       </nav>
       <!--  ----------------------------------------Navbar----------------------------------------  -->
+
     </header>
 
     <%= yield %>

@@ -5,7 +5,6 @@
 :root{
     --ui-min-width: 1000px;
     --standard-border-radius: 20px;
-    --user-input-background-color: rgba(50, 50, 50, 1);
     --user-input-text-color: white;
     --user-font-size: 30px;
 }
@@ -108,7 +107,7 @@
 }
 
 .button{
-    background-color: rgba(50, 50, 50, 1);
+    background-color: var(--buttons-background-color);
 
     height: 60%;
     //backdrop-filter: blur(10%);
