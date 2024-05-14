@@ -9,6 +9,35 @@
     --user-font-size: 30px;
 }
 
+.chatflow{
+    background-color: yellow;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    position: relative;
+    color: white;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1; /*piano base*/
+
+    /*responsibilità*/
+    @media (max-width: 1200px) {    /*font size da un minimo di 10px fino ad un massimo di calc(10px+1vm) con laghezza massima 1200px*/
+        font-size: calc(10px + 1vw);
+    }
+    @media (min-width: 1201px) {    /*font size da 22px per laghezze maggiori di 1200px*/
+        font-size: 22px; 
+    }
+    width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
+    min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
+}
+
+.top-separator{
+    margin: 80px 0px 0px 0px
+}
+
+
+
+
 .user-area{
     //background-color: violet;  //da eliminare
 
