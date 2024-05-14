@@ -1,3 +1,25 @@
-// Place all the styles related to the Help controller here.
+// Place all the styles related to the help controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
+  
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  
+  .header{
+      grid-area: 1 / 1 / span 1 / span 2;
+  }
+  
+  .main-content {
+    grid-area: 2 / 2 / span 4;
+  }
