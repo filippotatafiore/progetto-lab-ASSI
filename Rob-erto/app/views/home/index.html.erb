@@ -8,22 +8,29 @@
 
 <div class="user-area">
         <div class="user-input-container">
-            <%= text_area_tag '', "", id: "user-input" %>
-            <textarea placeholder="Ciao! Chiedimi quello che vuoi" id="user-input"></textarea>
+            <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
+                <%= text_area_tag :user_input, "", id: "user_input" %>
+            <% end %>
+            
+            <!-- <textarea placeholder="Ciao! Chiedimi quello che vuoi" id="user_input"></textarea> -->
         </div>
         
         <div class="commands-grid">
 
-            <%= link_to image_tag('send.svg', alt: "", class: "send-img"), root_path(send: :'ciao'), class: "button input-button" %>
-        
+            <button type="button" class="button input-button" id="send_button">
+                <%= image_tag('send.svg', alt: "", class: "send-img") %>
+            </button>
+            
             <button type="button" class="button input-button" id="newchat"></button>
         
             <button type="button" class="button input-button" id="more"></button>
 
         </div>
 
-        
+
 </div>
+
+<%= @usr_input %>
 
 
 <%= javascript_include_tag "home.js" %>
