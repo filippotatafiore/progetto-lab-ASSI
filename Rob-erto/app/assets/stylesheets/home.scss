@@ -9,8 +9,8 @@
     --user-font-size: 30px;
 }
 
-.chatflow{
-    background-color: yellow;
+.chatflow_container{
+    background-color: gray;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     position: relative;
     color: white;
@@ -34,6 +34,12 @@
 .top-separator{
     margin: 80px 0px 0px 0px
 }
+
+.chatbox{
+    background-color: red;
+}
+
+
 
 
 

@@ -1,18 +1,33 @@
 <h1>Homepage</h1>
 
-<%= @response %>
+<%= @response %><br><br>
+<%= @usr_input %>
 
-<div class="chatflow">
-    <div class="top-separator"></div>
+
+
+
+<div class="chatflow_container">
+    <ul class="chatflow">
+        <li class="chatbox incoming">
+            ciao
+        </li>
+        <div class="top-separator"></div>
+        <li class="chatbox outgoing">
+            ciao
+        </li>
+    </ul>
 </div>
+
+
+
+
+
 
 <div class="user-area">
         <div class="user-input-container">
             <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
                 <%= text_area_tag :user_input, "", id: "user_input" %>
             <% end %>
-            
-            <!-- <textarea placeholder="Ciao! Chiedimi quello che vuoi" id="user_input"></textarea> -->
         </div>
         
         <div class="commands-grid">
@@ -29,8 +44,6 @@
 
 
 </div>
-
-<%= @usr_input %>
 
 
 <%= javascript_include_tag "home.js" %>

@@ -6,3 +6,4 @@ send_button.addEventListener('click', function () {
     form.submit();
     //console.log("form submitted");
 });
+
