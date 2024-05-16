@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   #before_action :send_msg
 
   def index
-    @usr_input = session[:usr_input]
+    #@usr_input = session[:usr_input]
     @response = session[:response]
   end
 
@@ -12,10 +12,12 @@ class HomeController < ApplicationController
 
     session[:response] = "response vuota"
     if params[:user_input].present?
+
       if params[:user_input].empty?
         session[:usr_input] = "user input vuoto"
         # non fa nulla
         session[:response] = "nada"
+
       else
         session[:usr_input] = params[:user_input]
         # ---------------- invia messaggio all'AI ----------------
@@ -77,10 +79,23 @@ class HomeController < ApplicationController
       #non fa nulla
     end
 
+
+    # valori letti dalla funzione js che invoca send_msg
+    @usr_input = session[:usr_input]
+    render json: { usr_input: @usr_input }
+
     # reindirizzamento
-    redirect_to action: :index
+    #redirect_to action: :index
 
   end
+
+
+
+  # ------------------------------------------------------------------ funzione invocata da javascript il valore di session[:usr_input]
+  def get_usr_input
+    render json: { usr_input: @usr_input }
+  end
+
 
 
 

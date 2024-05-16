@@ -2,9 +2,20 @@
 var send_button = document.getElementById('send_button');
 var form = document.getElementById('user_input_form');
 
-let response = "<%= j @response %>";
-
 send_button.addEventListener('click', function () {
+    
+    let promise = new Promise(function(resolve, reject){
+        //# richiesta /send_msg
+        $.get('/send_msg', function(data) {
+            //# ricava il valore di session[:usr_input]
+            let usrInput = data.usr_input;
+            resolve(usrInput);
+        });
+    });
+    promise.then(function(value){
+        let usrInput = data.usr_input
+    });
+
     form.submit();
     console.log("form submitted");
     creaMessaggio();
@@ -12,10 +23,18 @@ send_button.addEventListener('click', function () {
 
 function creaMessaggio(){
     console.log("creazione messaggio");
-    let usrInput = "<%= j @usr_input %>";
-    document.getElementById("prova").innerText = usrInput;
-    console.log("aggiunto innertext");
+    
+    //# richiesta /get_usr_input
+    $.get('/get_usr_input', function(data) {
+        //# ricava il valore di session[:usr_input]
+        let usrInput = data.usr_input;
 
+        console.log("user input: ", usrInput);
+        document.getElementById("prova").innerHTML = usrInput;
+        console.log("aggiunto innertext");
+    });
+
+    /*
     let chatflow = document.getElementsByClassName("chatflow");
     let new_msg = document.createElement("li");
     new_msg.classList.add("chatbox");
@@ -25,5 +44,8 @@ function creaMessaggio(){
 
     new_msg.appendChild(contenuto);
     chatflow[0].appendChild(new_msg);
+
+
+    let response = "<%= j @response %>";*/
 }
 
