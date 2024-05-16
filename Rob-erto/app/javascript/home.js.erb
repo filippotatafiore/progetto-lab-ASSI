@@ -1,0 +1,29 @@
+
+var send_button = document.getElementById('send_button');
+var form = document.getElementById('user_input_form');
+
+let response = "<%= j @response %>";
+
+send_button.addEventListener('click', function () {
+    form.submit();
+    console.log("form submitted");
+    creaMessaggio();
+});
+
+function creaMessaggio(){
+    console.log("creazione messaggio");
+    let usrInput = "<%= j @usr_input %>";
+    document.getElementById("prova").innerText = usrInput;
+    console.log("aggiunto innertext");
+
+    let chatflow = document.getElementsByClassName("chatflow");
+    let new_msg = document.createElement("li");
+    new_msg.classList.add("chatbox");
+    new_msg.classList.add("outgoing");
+    let contenuto = document.createElement("p");
+    contenuto.innerText = usrInput;
+
+    new_msg.appendChild(contenuto);
+    chatflow[0].appendChild(new_msg);
+}
+

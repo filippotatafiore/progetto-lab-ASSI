@@ -9,6 +9,9 @@
     --user-font-size: 30px;
 }
 
+
+
+/* chat */
 .chatflow_container{
     background-color: gray;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -30,6 +33,10 @@
     width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
     min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
 }
+.chatflow{
+    overflow-y: auto;
+    padding: 0.8%;
+}
 
 .top-separator{
     margin: 80px 0px 0px 0px
@@ -37,12 +44,36 @@
 
 .chatbox{
     background-color: red;
+    display: flex;
+}
+.incoming{
+    justify-content: start;
+}
+.outgoing{
+    justify-content: end;
+}
+
+.chatbox p{             /* chatbox vere e proprie (contenitori delle stringhe) */
+    color: white;
+    padding: 12px 16px;
+
+    font-size: 110%;
+}
+.incoming p{
+    background-color: darkslategrey;
+    border-radius: 20px 20px 20px 0;
+}
+.outgoing p{
+    background-color: goldenrod;
+    border-radius: 20px 20px 0 20px;
 }
 
 
 
 
 
+
+/* user area (text area + bottoni) */
 
 .user-area{
     //background-color: violet;  //da eliminare
