@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   #before_action :send_msg
 
   def index
-    #@usr_input = session[:usr_input]
+    @usr_input = session[:usr_input]
     @response = session[:response]
   end
 
@@ -79,19 +79,17 @@ class HomeController < ApplicationController
       #non fa nulla
     end
 
-
-    # valori letti dalla funzione js che invoca send_msg
-    @usr_input = session[:usr_input]
-    render json: { usr_input: @usr_input }
-
     # reindirizzamento
-    #redirect_to action: :index
+    redirect_to action: :index
+
+    #@usr_input = session[:usr_input]
+    #@response = session[:response]
 
   end
 
 
 
-  # ------------------------------------------------------------------ funzione invocata da javascript il valore di session[:usr_input]
+  # ------------------------------------------------------------------ funzione invocata da javascript il valore di ...
   def get_usr_input
     render json: { usr_input: @usr_input }
   end
