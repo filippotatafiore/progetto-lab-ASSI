@@ -4,37 +4,5 @@ var form = document.getElementById('user_input_form');
 
 send_button.addEventListener('click', function () {
     form.submit();
-    console.log("form submitted");
-    creaMessaggio();
+    console.log("contenuto della text-area inviato all'AI");
 });
-
-function creaMessaggio(){
-    /*
-    console.log("creazione messaggio");
-    
-    //# richiesta /get_usr_input
-    $.get('/get_usr_input', function(data) {
-        //# ricava il valore di session[:usr_input]
-        let usrInput = data.usr_input;
-
-        console.log("user input: ", usrInput);
-        document.getElementById("prova").innerHTML = usrInput;
-        console.log("aggiunto innertext");
-    });
-
-    
-    let chatflow = document.getElementsByClassName("chatflow");
-    let new_msg = document.createElement("li");
-    new_msg.classList.add("chatbox");
-    new_msg.classList.add("outgoing");
-    let contenuto = document.createElement("p");
-    contenuto.innerText = usrInput;
-
-    new_msg.appendChild(contenuto);
-    chatflow[0].appendChild(new_msg);
-
-
-    let response = "<%= j @response %>";
-    */
-}
-

@@ -1,19 +1,36 @@
 <h1>Homepage</h1>
 
-<%= @response %><br><br>
-<%= @usr_input %>
-
 
 
 <div class="chatflow_container">
     <ul class="chatflow">
+
         <li class="chatbox incoming">
             <p>Hi there 👋, how can I help you? <br> Ask me anything ...</p>
         </li>
-        <li><div class="top-separator"></div></li>
+
+        <% @messages.each do |message| %>
+            <% if message.message_type == 0 %>
+                <li class="chatbox outgoing">
+                    <p><%= message.content %></p>
+                </li>
+            <% else %>
+                <li class="chatbox incoming">
+                    <p><%= message.content %></p>
+                </li>
+            <% end %>
+        <% end %>
+
+        <!--
         <li class="chatbox outgoing">
-            <p>ciao, questo è un esempio di messaggio proveniente da user</p>
+            <p><%= @usr_input %></p>
         </li>
+
+        <li class="chatbox incoming">
+            <p><%= @response %></p>
+        </li>
+        -->
+
     </ul>
 </div>
 
@@ -41,8 +58,6 @@
 
 
 </div>
-
-<b id="prova">prova qui</b>
 
 
 <%= javascript_include_tag "home.js" %>
