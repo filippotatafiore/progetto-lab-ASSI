@@ -6,7 +6,7 @@
     --ui-min-width: 1000px;
     --standard-border-radius: 20px;
     --user-input-text-color: white;
-    --user-font-size: 30px;
+    --user-font-size: 100%;
 }
 
 
@@ -23,13 +23,8 @@
 
     z-index: 1; /*piano base*/
 
-    /*responsibilità*/
-    @media (max-width: 1200px) {    /*font size da un minimo di 10px fino ad un massimo di calc(10px+1vm) con laghezza massima 1200px*/
-        font-size: calc(10px + 1vw);
-    }
-    @media (min-width: 1201px) {    /*font size da 22px per laghezze maggiori di 1200px*/
-        font-size: 22px; 
-    }
+    font-size: 70%;
+    
     width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
     min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
 }
@@ -82,7 +77,7 @@
     flex-direction: row;
     flex-grow: 1;
 
-    //justify-content: center;
+    justify-content: start;
     align-items: center;
 
     position: fixed;
@@ -97,13 +92,15 @@
 
     z-index: 999; /*sempre in primo piano*/
 
+    font-size: 70%;
+
     /*responsibilità*/
-    @media (max-width: 1200px) {    /*font size da un minimo di 10px fino ad un massimo di calc(10px+1vm) con laghezza massima 1200px*/
-        font-size: calc(10px + 1vw);
-    }
-    @media (min-width: 1201px) {    /*font size da 22px per laghezze maggiori di 1200px*/
-        font-size: 22px; 
-    }
+    //@media (max-width: 1200px) {    /*font size da un minimo di 10px fino ad un massimo di calc(10px+1vm) con laghezza massima 1200px*/
+    //    font-size: calc(10px + 1vw);
+    //}
+    //@media (min-width: 1201px) {    /*font size da 22px per laghezze maggiori di 1200px*/
+    //    font-size: 22px; 
+    //}
     
     //width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
     //min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
@@ -111,20 +108,27 @@
     padding-top: 3px;  //da eliminare
     padding-bottom: 3px;
     
-    padding-left: 3px;
+    padding-left: 35%;
     padding-right: 3px;
     
-    //gap: 10px;
+    gap: 1%;
 }
 
 .user-input-container{
+    display: flex;
     //background-color: brown;
-    position: relative;
-    left: 30%;
 
-    width: 40%;
-    //justify-content: center;
+    width: 50%;
+    height: 100%;
+    
+    justify-content: start;
     align-items: center;
+
+}
+
+#user_input_form{
+    width: 100%;
+    height: 100%;
 }
 
 #user_input{
@@ -136,30 +140,30 @@
     //margin: 5px 20% 5px 20%;
     //margin: 0px;
     width: 100%;
+    height: 100%;
     padding: 10px;
     
     border-radius: var(--standard-border-radius);
-    /* height: 80px; */
-    flex-grow: 1;
+
+    //flex-grow: 1;
     resize: none;
 
     border: 4px solid orangered;
+    box-sizing: border-box;
 }
 #user-input:focus{
     border: 0px;
     outline: none;
 }
-#user-input::placeholder{
-    color: rgb(170, 170, 170);
-}
+
+
 
 .commands-grid{
     //background-color: aliceblue;
-    position: relative;
-    left: 31%;
 
-    height: 100%;
-    width: 12%;
+    height: 80%;
+    width: 20%;
+    aspect-ratio: 1;
     
     display: flex;
     flex-direction: row;
@@ -175,9 +179,10 @@
 .button{
     background-color: var(--buttons-background-color);
 
-    height: 60%;
-    //backdrop-filter: blur(10%);
-    //background-position: center center;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(10%);
+    background-position: center center;
     //background-repeat: no-repeat;
     //background-size: 32px;
     //color: white;
@@ -188,15 +193,14 @@
 }
 
 .input-button{
+    display: flex;
     aspect-ratio: 1;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-
-    
 }
 
 .send-img{
-    width: 70%;
+    width: auto;
     height: 100%;
 }

@@ -34,16 +34,16 @@
 
 #navbar-id{
     background-color: var(--navbar-color);
-    height: 100%;
+    height: fit-content;
     width: 100%;
 }
 
 #namep{
-    font-size: xxx-large;
+    font-size: 100%;
 }
 
 #navbarSupportedContent{
-    font-size: xx-large;
+    font-size: 100%;
 }
 
 .navbar-nav{
@@ -51,16 +51,36 @@
 }
 
 .dropdown-menu{
-    font-size: xx-large;
+    font-size: 100%;
 }
 
 .settings-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     position: relative;
     right: 2%;
 }
 
-.icon-img{
+#settings-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 30px;
+    height: 30px;
+}
+.settings-img{
     width: 100%;
     height: 100%;
 }
 
+#sun-img{
+    width: 15%;
+    height: 15%;
+}
+#moon-img{
+    width: 15%;
+    height: 15%;
+}

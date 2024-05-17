@@ -55,17 +55,17 @@
             
 
             <div class="settings-container">
-              <li class="btn-group dropstart">
-                <button class="btn nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <%= image_tag('settings.svg', alt: "", class: "icon-img") %>
+              <div class="btn-group dropstart">
+                <button class="btn nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="settings-img-container">
+                  <%= image_tag('settings.svg', alt: "", class: "settings-img") %>
                 </button>
 
                 <ul class="dropdown-menu">
                   <li>
                     <% if @theme == 'dark' %>
-                      <%= link_to image_tag('sun.svg', alt: ""), root_path(theme: 'light'), class: "btn dropdown-item" %>
+                      <%= link_to image_tag('sun.svg', alt: "", id: "sun-img"), root_path(theme: 'light'), class: "btn dropdown-item" %>
                     <% else %>
-                      <%= link_to image_tag('moon.svg', alt: ""), root_path(theme: 'dark'), class: "btn dropdown-item" %>
+                      <%= link_to image_tag('moon.svg', alt: "", id: "moon-img"), root_path(theme: 'dark'), class: "btn dropdown-item" %>
                     <% end %>
                   </li>
                   <li><hr class="dropdown-divider"></li>
@@ -74,7 +74,7 @@
                   <li><a class="dropdown-item" href="#">Font</a></li>
                   <li><a class="dropdown-item" href="#">Colore font</a></li>
                 </ul>
-              </li>
+              </div>
             </div>
 
           </div>
