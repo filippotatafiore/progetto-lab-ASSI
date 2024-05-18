@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       session[:messages] = []
     end
 
+    #Message.destroy_all
     @messages = Message.order(created_at: :asc)
 
   end

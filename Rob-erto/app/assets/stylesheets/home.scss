@@ -27,11 +27,12 @@
     
     width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
     min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
+    height: 60vh; /* Adatta l'altezza all'altezza del viewport */
+    overflow-y: auto;
 
     border-radius: var(--standard-border-radius);
 }
 .chatflow{
-    overflow-y: auto;
     padding: 0.8%;
 }
 
