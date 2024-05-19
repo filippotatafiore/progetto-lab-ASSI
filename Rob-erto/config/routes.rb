@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'profilo/index'
   get 'help/index'
   get 'home/index'
   root 'home#index'

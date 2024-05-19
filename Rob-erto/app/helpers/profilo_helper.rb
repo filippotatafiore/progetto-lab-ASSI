@@ -1,0 +1,2 @@
+module ProfiloHelper
+end
