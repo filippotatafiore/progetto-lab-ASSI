@@ -1,8 +1,48 @@
 
 var send_button = document.getElementById('send_button');
+
+var translate_ita_button = document.getElementById('translate-ita');
+var translate_sp_button = document.getElementById('translate-sp');
+var translate_fr_button = document.getElementById('translate-fr');
+var translate_de_button = document.getElementById('translate-de');
+var translate_input = document.getElementById('translate_input');
+
 var form = document.getElementById('user_input_form');
 
-send_button.addEventListener('click', function () {
+
+
+send_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    translate_input.value = 'false';
+    form.submit();
+    console.log("contenuto della text-area inviato all'AI");
+});
+
+translate_ita_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("traduzione in italiano");
+    translate_input.value = 'italian';
+    form.submit();
+    console.log("contenuto della text-area inviato all'AI");
+});
+translate_sp_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("traduzione in spagnolo");
+    translate_input.value = 'spanish';
+    form.submit();
+    console.log("contenuto della text-area inviato all'AI");
+});
+translate_fr_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("traduzione in francese");
+    translate_input.value = 'french';
+    form.submit();
+    console.log("contenuto della text-area inviato all'AI");
+});
+translate_de_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("traduzione in tedesco");
+    translate_input.value = 'german';
     form.submit();
     console.log("contenuto della text-area inviato all'AI");
 });

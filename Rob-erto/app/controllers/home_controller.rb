@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
 
   
-  # ------------------------------------------------------------------ send
+  # ------------------------------------------------------------------ invio e ricezione messaggi
   def send_msg
 
     #session[:response] = "response vuota"
@@ -44,6 +44,12 @@ class HomeController < ApplicationController
 
 
         messaggio = params[:user_input]     # messaggio da inviare
+        
+        # gestione traduzioni
+        if params[:translate].present? and params[:translate] != "false"
+          messaggio = "Translate the following text in " + params[:translate] + ": " + messaggio
+        end
+
         session[:messages].push({"role": "user", "content": messaggio})
 
         request.body = {

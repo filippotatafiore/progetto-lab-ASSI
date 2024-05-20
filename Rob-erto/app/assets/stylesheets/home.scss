@@ -205,7 +205,11 @@
     justify-content: center;
 }
 
-.send-img{
+.button.dropdown-toggle::after {
+    display: none;      /*elimina la freccetta del dropdown*/
+}
+
+.button-img{
     width: auto;
     height: 100%;
 }

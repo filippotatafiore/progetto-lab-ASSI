@@ -1,7 +1,6 @@
 <h1>Homepage</h1>
 
 
-
 <div class="chatflow_container">
     <ul class="chatflow">
 
@@ -31,16 +30,27 @@
         <div class="user-input-container">
             <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
                 <%= text_area_tag :user_input, "", id: "user_input" %>
+                <%= hidden_field_tag :translate, 'false', id: 'translate_input' %>
             <% end %>
         </div>
         
         <div class="commands-grid">
 
             <button type="button" class="button input-button" id="send_button">
-                <%= image_tag('send.png', alt: "", class: "send-img") %>
+                <%= image_tag('send.png', alt: "", class: "button-img") %>
             </button>
+
             
-            <button type="button" class="button input-button" id="newchat"></button>
+            <button type="button" class="button input-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="translate_button">
+                <%= image_tag('globe.png', alt: "", class: "button-img") %>
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item" id="translate-ita">Italiano 🇮🇹</button></li>
+                <li><button class="dropdown-item" id="translate-sp">Spagnolo 🇪🇦</button></li>
+                <li><button class="dropdown-item" id="translate-fr">Francese 🇫🇷</button></li>
+                <li><button class="dropdown-item" id="translate-de">Tedesco 🇩🇪</button></li>
+            </ul>
+        
         
             <button type="button" class="button input-button" id="more"></button>
 
