@@ -9,11 +9,24 @@ class ApplicationController < ActionController::Base
     # ------------------------------------------------------------------ tema app
     def set_theme
         if params[:theme].present?
-            @theme = params[:theme] 
+            @theme = params[:theme]
         else
             @theme = 'light'
         end
     end
 
+    # ------------------------------------------------------------------ rende disponibile alcuni metodi di devise alle altre viste
+    helper_method :devise_mapping, :resource_class, :resource_name
 
+    def devise_mapping
+        Devise.mappings[:user] # or replace :user with whatever model you have
+    end
+
+    def resource_class
+        devise_mapping.class_name.constantize
+    end
+
+    def resource_name
+        devise_mapping.name
+    end
 end

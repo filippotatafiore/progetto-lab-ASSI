@@ -1,3 +1,14 @@
-<h1>Profilo#index</h1>
-<p>Find me in app/views/profilo/index.html.erb</p>
-dasdasd
+<h1>Profilo</h1>
+<p>Welcome to your profile section!</p>
+
+<% unless user_signed_in? %>
+    <p>Haven't you logged in yet or are you a new user?</p>
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+      <% end %>
+  <% end %>
+<% else %>
+    <p>Welcome <%= current_user.name %></p>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "logout-button" %>
+<% end %>
