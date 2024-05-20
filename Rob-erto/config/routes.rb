@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  devise_for :users,:controllers => {registrations: 'registrations'}
+  devise_for :users,:controllers => {registrations: 'registrations', omniauth_callbacks: 'callbacks' }
   #change the route from /users/login to /login route
   devise_scope :user do
     get 'login', to: 'devise/sessions#new'
@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'signup', to: 'devise/registrations#new'
   end
+
 
 end
