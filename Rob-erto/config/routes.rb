@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
+  get 'change_theme', to: 'application#change_theme'  # per invocare cambiare il tema
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

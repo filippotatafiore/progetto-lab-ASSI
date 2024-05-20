@@ -8,11 +8,16 @@ class ApplicationController < ActionController::Base
 
     # ------------------------------------------------------------------ tema app
     def set_theme
+        @theme = session[:theme] || 'light'
+    end
+
+    def change_theme
         if params[:theme].present?
-            @theme = params[:theme]
+            session[:theme] = params[:theme]
         else
-            @theme = 'light'
+            session[:theme] = 'light'
         end
+        redirect_back(fallback_location: root_path)
     end
 
     # ------------------------------------------------------------------ rende disponibile alcuni metodi di devise alle altre viste
