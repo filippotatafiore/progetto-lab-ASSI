@@ -24,9 +24,11 @@ gem 'importmap-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-
 # gemma per ajax
 gem 'jquery-rails'
+
+#gemma per login
+gem 'devise' #login con credenziali
 
 
 group :development, :test do
