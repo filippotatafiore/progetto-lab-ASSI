@@ -1,14 +1,23 @@
-<h1>Profilo</h1>
-<p>Welcome to your profile section!</p>
+<div class="container z-index-1">
+    <div class="row justify-content-center align-items-center custom-height">
+        <div class="col-12 col-md-8 col-lg-6">
+        <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow">
+            <p>Welcome to your profile section!</p>
+            <% unless user_signed_in? %>
+            <p>Haven't you logged in yet or are you a new user?</p>
+            <%- if devise_mapping.omniauthable? %>
+                <%- resource_class.omniauth_providers.each do |provider| %>
+                <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-primary mb-2" %>
+                <% end %>
+            <% end %>
+            <% else %>
+            <p>Welcome <%= current_user.name %></p>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+            <% end %>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="blur-background"></div>
+<%= javascript_include_tag 'letters' %>
 
-<% unless user_signed_in? %>
-    <p>Haven't you logged in yet or are you a new user?</p>
-    <%- if devise_mapping.omniauthable? %>
-      <%- resource_class.omniauth_providers.each do |provider| %>
-        <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-      <% end %>
-  <% end %>
-<% else %>
-    <p>Welcome <%= current_user.name %></p>
-    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "logout-button" %>
-<% end %>
