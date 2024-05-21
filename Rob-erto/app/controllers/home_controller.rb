@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  #before_action :send_msg
 
   def index
     if session[:first_visit].nil?   # prima volta che si accede alla pagina
@@ -92,6 +91,20 @@ class HomeController < ApplicationController
     # reindirizzamento (aggiorna la pagina)
     redirect_to action: :index
 
+  end
+
+
+
+  # ------------------------------------------------------------------ eliminare messaggi
+  def delete_message
+    @message = Message.find(params[:id])
+    @next_message = Message.where("id > ?", params[:id]).first
+
+    @message.destroy
+    @next_message.destroy if @next_message
+
+    # reindirizzamento (aggiorna la pagina)
+    redirect_to action: :index
   end
 
 end

@@ -11,6 +11,7 @@
         <% @messages.each do |message| %>
             <% if message.message_type == 0 %>
                 <li class="chatbox outgoing">
+                    <%= button_to '', delete_message_path(message), method: :delete, class: 'btn-close', data: { confirm: 'Are you sure?' } %>
                     <p><%= message.content %></p>
                 </li>
             <% else %>
