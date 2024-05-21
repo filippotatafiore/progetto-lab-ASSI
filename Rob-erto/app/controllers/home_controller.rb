@@ -60,8 +60,12 @@ class HomeController < ApplicationController
 
         response_obj = JSON.parse(response.body)
 
-        response_obj["choices"].each do |choice|
-          session[:response] = choice["message"]["content"]
+        if response_obj["choices"]
+          response_obj["choices"].each do |choice|
+            session[:response] = choice["message"]["content"]
+          end
+        else
+          session[:response] = "Sto avendo dei problemi in questo momento. Prova a inviare nuovamente il messaggio."
         end
 
         # ---------------- invia messaggio all'AI ----------------
