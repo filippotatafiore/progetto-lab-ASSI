@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_20_115335) do
+ActiveRecord::Schema.define(version: 2024_05_23_110727) do
 
   create_table "messages", force: :cascade do |t|
-    t.integer "message_id"
     t.text "content"
-    t.integer "user_id"
     t.integer "chat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
