@@ -1,10 +1,11 @@
+
 Rails.application.routes.draw do
 
   get 'profilo/index'
   get 'help/index'
   get 'home/index'
   root 'home#index'
-
+  post '/create', to: 'home#create' #per creare chat eventualmente quando si fa la logica
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
   get 'change_theme', to: 'application#change_theme'  # per cambiare il tema
   delete '/home/:id/delete_message', to: 'home#delete_message', as: :delete_message  # per eliminare un messaggio
@@ -22,3 +23,4 @@ Rails.application.routes.draw do
 
 
 end
+

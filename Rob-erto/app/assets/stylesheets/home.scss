@@ -1,3 +1,4 @@
+
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
@@ -15,7 +16,9 @@
 .chatflow_container{
     background-color: gray;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    position: relative;
+    position: fixed;
+    left: 27.5vw;
+    top: 10vh;
     color: white;
     margin: 0px auto;
     display: flex;
@@ -215,6 +218,7 @@
 
 .input-button{
     display: flex;
+
     aspect-ratio: 1;
     flex-grow: 1;
     align-items: center;
@@ -228,4 +232,55 @@
 .button-img{
     width: auto;
     height: 100%;
+}
+
+.list_container{
+    margin-top: 10px;
+    float: left;
+    width: 10vw;
+    min-width: 10px;
+    height: 90vh;
+    margin-left: 20px;
+    background-color: black;
+    border-radius: 20px 20px 20px 20px;
+    overflow: hidden;
+}
+
+.title{
+    text-align: center;
+    height: 10%;
+    background-color: var(--buttons-background-color);
+    word-wrap: break-word;
+    overflow-y :auto;
+    padding: 1vh;
+    
+}
+
+.list{
+    background-color: gray;
+    height: 90%;
+    word-wrap: break-word;
+    overflow-y :auto;
+    
+
+}
+
+.crea{
+    background-color: var(--buttons-background-color);
+    width: 75%;
+    height: 7vh;
+    color: white;
+    backdrop-filter: blur(10%);
+
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: var(--standard-border-radius);
+}
+
+.partial_test{
+    padding: 10px;
+    color: white;
+}
+
+.crea:active{
+    color:red;
 }

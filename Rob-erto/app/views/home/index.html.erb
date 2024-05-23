@@ -1,4 +1,11 @@
-<h1>Homepage</h1>
+<div class="list_container">
+    <div class="title">
+        <%= button_to 'Crea chat', create_path, method: :post, data: { confirm: 'Are you sure?' }, class: 'crea' %>
+    </div>
+    <div class="list">
+            <%= render partial: "home/chat_list" %>
+    </div>             
+</div>
 
 
 <div class="chatflow_container">
@@ -54,9 +61,10 @@
                 <li><button class="dropdown-item" id="translate-fr">Francese 🇫🇷</button></li>
                 <li><button class="dropdown-item" id="translate-de">Tedesco 🇩🇪</button></li>
             </ul>
-        
-        
-            <button type="button" class="button input-button" id="more"></button>
+
+
+            
+            
 
         </div>
 
