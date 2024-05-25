@@ -2,13 +2,31 @@ class HomeController < ApplicationController
 
   def index
     if session[:first_visit].nil?   # prima volta che si accede alla pagina
-      Message.destroy_all
+
       session[:first_visit] = false
 
+      # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 24 ore
+      User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 24.hours.ago, 'base_user').destroy_all
+      # vengono eliminate di conseguenza tutte le chat associate agli utenti eliminati e tutti i messaggi associati alle chat eliminate
+
+      # ------------------ Crea un nuovo base_user
+      nuovo_base_user = User.new
+      nuovo_base_user.name = 'base_user'
+      nuovo_base_user.email = 'base_user@fake_email'
+      nuovo_base_user.password = 'base_user_password'
+      nuovo_base_user.save        # Salva l'utente nel database
+      # ------------------ Crea nuova chat per il base-user
+      nuovaChat = Chat.new
+      nuovaChat.user_id = nuovo_base_user.id
+      nuovaChat.save          # Salva la chat nel database
+
+      session[:chat_id] = nuovaChat.id
+
       session[:messages] = []
+
     end
 
-    #Message.destroy_all
+    # messaggi da mostrare nella pagina
     @messages = Message.order(created_at: :asc)
 
   end
@@ -76,13 +94,19 @@ class HomeController < ApplicationController
         user_message = Message.new
         user_message.content = session[:usr_input] # messaggio dell'utente
         user_message.message_type = 0     # messaggio utente avrà: message_type = 0
+        user_message.chat_id = session[:chat_id]    # associa il messaggio alla chat corrente
         user_message.save
 
         # ai_message
         ai_message = Message.new
         ai_message.content = session[:response] # messaggio dell'AI
         ai_message.message_type = 1     # messaggio dalll'AI avrà: message_type = 1
+        ai_message.chat_id = session[:chat_id]    # associa il messaggio alla chat corrente
         ai_message.save
+
+        # Aggiorna il timestamp updated_at della chat
+        chat = Chat.find(session[:chat_id])
+        chat.touch
         # ---------------- salva i due nuovi messaggi come istanze di Message ----------------
 
       end

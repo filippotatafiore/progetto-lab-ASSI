@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable
 
-  has_many :chats
+  has_many :chats, dependent: :destroy
   has_many :friendships
   has_many :friends, through: :friendships
 
