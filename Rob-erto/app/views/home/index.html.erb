@@ -15,13 +15,15 @@
             <p>Hi there 👋, how can I help you? <br> Ask me anything ...</p>
         </li>
 
-        <% @messages.each do |message| %>
+        <% @messages.each_with_index do |message, index| %>
             <% if message.message_type == 0 %>
                 <li class="chatbox outgoing">
-                    <%= button_to '', delete_message_path(message), method: :delete, class: 'btn-close', data: { confirm: 'Are you sure?' } %>
-                    <button class="reload-button">
-                        <%= image_tag('reload.svg', alt: "") %>
-                    </button>
+                    <%= button_to '', delete_message_path(message), method: :delete, class: 'btn-close' %>
+                    <% if index == @messages.rindex { |m| m.message_type == 0 } %>
+                        <button type="button" class="reload-button", id: 'reload_button'>
+                            <%= image_tag('reload.svg', alt: "") %>
+                        </button>
+                    <% end %>
                     <p><%= message.content %></p>
                 </li>
             <% else %>
@@ -42,6 +44,7 @@
             <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
                 <%= text_area_tag :user_input, "", id: "user_input" %>
                 <%= hidden_field_tag :translate, 'false', id: 'translate_input' %>
+                <%= hidden_field_tag :reload, 'false', id: 'reload_input' %>
             <% end %>
         </div>
         

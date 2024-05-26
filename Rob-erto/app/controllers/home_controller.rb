@@ -5,8 +5,8 @@ class HomeController < ApplicationController
 
       session[:first_visit] = false
 
-      # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 24 ore
-      User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 24.hours.ago, 'base_user').destroy_all
+      # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
+      User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
       # vengono eliminate di conseguenza tutte le chat associate agli utenti eliminati e tutti i messaggi associati alle chat eliminate
 
       # ------------------ Crea un nuovo base_user
@@ -38,9 +38,9 @@ class HomeController < ApplicationController
   def send_msg
 
     #session[:response] = "response vuota"
-    if params[:user_input].present?
+    if params[:user_input].present? or params[:reload].present?
 
-      if params[:user_input].empty?
+      if params[:user_input].empty? and !params[:reload].present?
         # non fa nulla
         #session[:usr_input] = "user input vuoto"
         #session[:response] = "nada"
@@ -65,6 +65,15 @@ class HomeController < ApplicationController
         # gestione traduzioni
         if params[:translate].present? and params[:translate] != "false"
           messaggio = "Translate the following text in " + params[:translate] + ": " + messaggio
+        end
+
+        # gestione reload ultimo messaggio
+        if params[:reload].present? and params[:reload] != "false"
+          last_message = session[:messages][-1]
+          # elimina gli ultimi 2 messaggi
+          Message.where(chat_id: session[:chat_id]).order(created_at: :desc).limit(2).destroy_all
+          # invia nuovamente il messaggio
+          messaggio = last_message[:content]
         end
 
         session[:messages].push({"role": "user", "content": messaggio})

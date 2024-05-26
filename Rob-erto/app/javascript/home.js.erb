@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 
 var send_button = document.getElementById('send_button');
 
@@ -6,6 +8,9 @@ var translate_sp_button = document.getElementById('translate-sp');
 var translate_fr_button = document.getElementById('translate-fr');
 var translate_de_button = document.getElementById('translate-de');
 var translate_input = document.getElementById('translate_input');
+
+var reload_button = document.getElementById('reload_button');
+var reload_input = document.getElementById('reload_input');
 
 var form = document.getElementById('user_input_form');
 
@@ -46,4 +51,15 @@ translate_de_button.addEventListener('click', function (event) {
     translate_input.value = 'german';
     form.submit();
     console.log("contenuto della text-area inviato all'AI");
+});
+
+
+reload_button.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("reload ultimo messaggio");
+    reload_input.value = 'true';
+    form.submit();
+});
+
+
 });
