@@ -1,7 +1,7 @@
 <div class="container z-index-1">
-    <div class="row justify-content-center align-items-center custom-height">
+    <div class="row justify-content-center custom-height">
         <div class="col-12 col-md-8 col-lg-6">
-        <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow">
+        <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
             <p>Welcome to your profile section!</p>
             <% unless user_signed_in? %>
             <p>Haven't you logged in yet or are you a new user?</p>
@@ -13,6 +13,20 @@
             <% else %>
             <p>Welcome <%= current_user.name %></p>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+            <div class="border-top mt-2 text-center">
+                <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
+                <ul class="d-inline-block text-left">
+                    <li>funzionalità uno</li>
+                    <li>funzionalità due</li>
+                </ul>
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="ELCG948BR5NRQ" />
+                    <input type="hidden" name="currency_code" value="EUR" />
+                    <input type="image" src="https://www.paypalobjects.com/it_IT/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal, il metodo semplice e sicuro per pagare online" alt="Acquista ora" />
+                </form>
+            </div>
             <% end %>
         </div>
         </div>
