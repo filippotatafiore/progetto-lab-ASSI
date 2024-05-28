@@ -19,8 +19,9 @@
             <% if message.message_type == 0 %>
                 <li class="chatbox outgoing">
                     <%= button_to '', delete_message_path(message), method: :delete, class: 'btn-close' %>
+                    <!-- aggiunge il bottone reload solo all'ultimo messaggio -->
                     <% if index == @messages.rindex { |m| m.message_type == 0 } %>
-                        <button type="button" class="reload-button", id: 'reload_button'>
+                        <button type="button" class="reload-button" id="reload_button">
                             <%= image_tag('reload.svg', alt: "") %>
                         </button>
                     <% end %>
@@ -65,9 +66,6 @@
                 <li><button class="dropdown-item" id="translate-de">Tedesco 🇩🇪</button></li>
             </ul>
 
-
-            
-            
 
         </div>
 

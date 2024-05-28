@@ -69,11 +69,17 @@ class HomeController < ApplicationController
 
         # gestione reload ultimo messaggio
         if params[:reload].present? and params[:reload] != "false"
-          last_message = session[:messages][-1]
-          # elimina gli ultimi 2 messaggi
-          Message.where(chat_id: session[:chat_id]).order(created_at: :desc).limit(2).destroy_all
-          # invia nuovamente il messaggio
-          messaggio = last_message[:content]
+          if session[:messages].length > 1
+            last_message = session[:messages][-1]
+            # invia nuovamente il messaggio
+            messaggio = last_message["content"]
+            session[:usr_input] = messaggio
+            # elimina gli ultimi 2 messaggi
+            Message.where(chat_id: session[:chat_id]).order(created_at: :desc).limit(2).destroy_all
+          else
+            # reindirizzamento (aggiorna la pagina)
+            redirect_to action: :index and return
+          end
         end
 
         session[:messages].push({"role": "user", "content": messaggio})
@@ -83,7 +89,14 @@ class HomeController < ApplicationController
           "messages": session[:messages]
         }.to_json
 
-        response = http.request(request)
+
+        retries = 2   # numero di tentativi di invio del messaggio
+        begin
+          response = http.request(request)
+        rescue Net::ReadTimeout
+          retry if (retries -= 1) > 0   # riprova ancora una volta in caso di errore di timeout nella richiesta http
+          redirect_to action: :index and return
+        end
 
         response_obj = JSON.parse(response.body)
 
@@ -126,7 +139,7 @@ class HomeController < ApplicationController
     end
 
     # reindirizzamento (aggiorna la pagina)
-    redirect_to action: :index
+    redirect_to action: :index and return
 
   end
 
