@@ -4,7 +4,6 @@ class HomeController < ApplicationController
     if session[:first_visit].nil?   # prima volta che si accede alla pagina
 
       session[:first_visit] = false
-      @primo_accesso = 'true'
 
       # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
       #User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
@@ -36,7 +35,7 @@ class HomeController < ApplicationController
     @messages = Message.order(created_at: :asc)
     # nome della chat
     @chat_name = session[:chat_name]
-    # modello di ia
+    # modello di IA
     @ai_model = session[:ai_model]
 
   end

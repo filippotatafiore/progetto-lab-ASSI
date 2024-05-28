@@ -1,3 +1,4 @@
+
 <div class="list_container">
     <div class="title">
         <%= button_to 'Crea chat', create_path, method: :post, data: { confirm: 'Are you sure?' }, class: 'crea' %>
@@ -17,7 +18,7 @@
     <div class="chatflow_container">
 
         <ul class="chatflow">
-            <%= @primo_accesso %>
+            
             <li class="chatbox incoming">
                 <p>Hi there 👋, how can I help you? <br> Ask me anything ...</p>
             </li>
@@ -79,10 +80,10 @@
                 <%= image_tag('model-ai.png', alt: "", class: "button-img") %>
             </button>
             <ul class="dropdown-menu">
-                <li><%= link_to 'Mixtral 8x7b (Mistral)', set_aimodel_path('mixtral'), method: :post, class: 'dropdown-item' %></li>
-                <li><%= link_to 'Gemma 7b (Google)', set_aimodel_path('gemma'), method: :post, class: 'dropdown-item' %></li>
-                <li><%= link_to 'LLaMA3 70b (Meta)', set_aimodel_path('llama3-70b'), method: :post, class: 'dropdown-item' %></li>
-                <li><%= link_to 'LLaMA3 8b (Meta)', set_aimodel_path('llama3-8b'), method: :post, class: 'dropdown-item' %></li>
+                <li><%= link_to 'Mixtral 8x7b (Mistral)', set_aimodel_path('mixtral'), class: 'dropdown-item' %></li>
+                <li><%= link_to 'Gemma 7b (Google)', set_aimodel_path('gemma'), class: 'dropdown-item' %></li>
+                <li><%= link_to 'LLaMA3 70b (Meta)', set_aimodel_path('llama3-70b'), class: 'dropdown-item' %></li>
+                <li><%= link_to 'LLaMA3 8b (Meta)', set_aimodel_path('llama3-8b'), class: 'dropdown-item' %></li>
             </ul>
 
 

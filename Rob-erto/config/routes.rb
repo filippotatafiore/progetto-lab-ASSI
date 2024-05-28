@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   
   delete '/home/:id/delete_message', to: 'home#delete_message', as: :delete_message  # per eliminare un messaggio
 
-  post 'set_aimodel/:ai_model', to: 'home#set_aimodel', as: 'set_aimodel'  # per settare il modello di IA
+  get 'set_aimodel/:ai_model', to: 'home#set_aimodel', as: 'set_aimodel'  # per settare il modello di IA
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
