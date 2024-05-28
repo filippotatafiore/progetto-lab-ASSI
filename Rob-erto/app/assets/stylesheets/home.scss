@@ -13,27 +13,55 @@
 
 
 /* chat */
-.chatflow_container{
-    background-color: gray;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    position: fixed;
-    left: 27.5vw;
-    top: 10vh;
-    color: white;
-    margin: 0px auto;
+.chat-area{
+    //background-color: red;
     display: flex;
     flex-direction: column;
 
-    z-index: 1; /*piano base*/
+    position: fixed;
+    left: 27.5vw;
+    top: 13vh;
 
-    font-size: 70%;
-    
-    width: 50vw; /* Adatta la larghezza alla larghezza del viewport */
+    width: 50vw;
+    height: 65vh;
     min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
-    height: 60vh; /* Adatta l'altezza all'altezza del viewport */
+}
+
+.chat-header{
+    background-color: var(--user-input-background-color);
+    color: greenyellow;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 110%;
+
+    height: 8%;
+
+    border-radius: 20px 20px 0 0;
+}
+#nome-modello{
+    position: absolute;
+    right: 10px;
+}
+
+.chatflow_container{
+    background-color: gray;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: white;
+    font-size: 70%;
+
+    //margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+
+    //z-index: 1; /*piano base*/
+    
+    width: 100%; /* Adatta la larghezza alla larghezza del viewport */
+    height: 100%; /* Adatta l'altezza all'altezza del viewport */
     overflow-y: auto;
 
-    border-radius: var(--standard-border-radius);
+    border-radius: 0 0 20px 20px;
 }
 .chatflow{
     padding: 0.8%;

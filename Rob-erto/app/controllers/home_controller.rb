@@ -4,9 +4,11 @@ class HomeController < ApplicationController
     if session[:first_visit].nil?   # prima volta che si accede alla pagina
 
       session[:first_visit] = false
+      @primo_accesso = 'true'
 
       # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
-      User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
+      #User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
+      User.where('users.name = ?', 'base_user').destroy_all
       # vengono eliminate di conseguenza tutte le chat associate agli utenti eliminati e tutti i messaggi associati alle chat eliminate
 
       # ------------------ Crea un nuovo base_user
@@ -18,16 +20,24 @@ class HomeController < ApplicationController
       # ------------------ Crea nuova chat per il base-user
       nuovaChat = Chat.new
       nuovaChat.user_id = nuovo_base_user.id
+      nuovaChat.nome = 'Chat con AI'
       nuovaChat.save          # Salva la chat nel database
 
       session[:chat_id] = nuovaChat.id
+      session[:chat_name] = nuovaChat.nome
+
 
       session[:messages] = []
+      session[:ai_model] = 'mixtral-8x7b-32768'
 
     end
 
     # messaggi da mostrare nella pagina
     @messages = Message.order(created_at: :asc)
+    # nome della chat
+    @chat_name = session[:chat_name]
+    # modello di ia
+    @ai_model = session[:ai_model]
 
   end
 
@@ -85,7 +95,7 @@ class HomeController < ApplicationController
         session[:messages].push({"role": "user", "content": messaggio})
 
         request.body = {
-          "model": "mixtral-8x7b-32768",
+          "model": session[:ai_model],
           "messages": session[:messages]
         }.to_json
 
@@ -156,5 +166,34 @@ class HomeController < ApplicationController
     # reindirizzamento (aggiorna la pagina)
     redirect_to action: :index
   end
+
+
+
+  # ------------------------------------------------------------------ cambiare modello di ia
+  def set_aimodel
+
+    if params[:ai_model].present?
+      if params[:ai_model] == "gemma"
+        session[:ai_model] = "gemma-7b-it"
+
+      elsif params[:ai_model] == "llama3-70b"
+        session[:ai_model] = "llama3-70b-8192"
+
+      elsif params[:ai_model] == "llama3-8b"
+        session[:ai_model] = "llama3-8b-8192"
+
+      else
+        session[:ai_model] = "mixtral-8x7b-32768"
+
+      end
+    end
+
+    # reindirizzamento (aggiorna la pagina)
+    redirect_to action: :index
+ 
+  end
+
+
+
 
 end
