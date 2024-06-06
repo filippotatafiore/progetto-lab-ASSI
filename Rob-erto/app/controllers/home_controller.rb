@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
 
   def index
+    @first_visit = 'not first visit'
     if session[:first_visit].nil?   # prima volta che si accede alla pagina
-
+      reset_session
       session[:first_visit] = false
+      @first_visit = 'first visit'
 
       # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
       #User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all

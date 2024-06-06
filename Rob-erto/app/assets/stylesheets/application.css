@@ -14,6 +14,11 @@
  *= require_self
  */
 
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
 .light{
     background-color: rgb(214, 214, 214);
     color: black;
@@ -69,6 +74,23 @@
 
     position: relative;
     right: 2%;
+    overflow: visible;
+}
+
+#settings-window{
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 100%;
+    right: 100%;
+}
+.window-visibility{
+    display: none;
+}
+
+.window-item{
+    width: 100%;
+    height: 100%;
 }
 
 #settings-img-container{
@@ -85,10 +107,10 @@
 }
 
 #sun-img{
-    width: 15%;
-    height: 15%;
+    width: 40%;
+    height: 40%;
 }
 #moon-img{
-    width: 15%;
-    height: 15%;
+    width: 40%;
+    height: 40%;
 }

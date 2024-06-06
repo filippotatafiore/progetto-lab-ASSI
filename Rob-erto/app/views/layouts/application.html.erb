@@ -18,6 +18,7 @@
   </head>
 
   <body class="<%= @theme %>">
+
     <header>
       <!--  ----------------------------------------Navbar----------------------------------------  -->
       <nav class="navbar navbar-expand-lg bg-body-tertiary" id="NavBar">
@@ -56,26 +57,35 @@
             
 
             <div class="settings-container">
-              <div class="btn-group dropstart">
-                <button class="btn nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="settings-img-container">
-                  <%= image_tag('settings.svg', alt: "", class: "settings-img") %>
-                </button>
 
-                <ul class="dropdown-menu">
-                  <li>
+              <div class="window-visibility" id="settings-window">
+                <ul class="list-group">
+                  <li class="list-group-item">
                     <% if @theme == 'dark' %>
-                      <%= link_to image_tag('sun.svg', alt: "", id: "sun-img"), change_theme_path(theme: 'light'), class: "btn dropdown-item" %>
+                      <%= link_to image_tag('sun.svg', alt: "", id: "sun-img"), change_theme_path(theme: 'light'), class: "btn window-item" %>
                     <% else %>
-                      <%= link_to image_tag('moon.svg', alt: "", id: "moon-img"), change_theme_path(theme: 'dark'), class: "btn dropdown-item" %>
+                      <%= link_to image_tag('moon.svg', alt: "", id: "moon-img"), change_theme_path(theme: 'dark'), class: "btn window-item" %>
                     <% end %>
                   </li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Sfondo chat</a></li>
-                  <li><a class="dropdown-item" href="#">Colore chatbox</a></li>
-                  <li><a class="dropdown-item" href="#">Font</a></li>
-                  <li><a class="dropdown-item" href="#">Colore font</a></li>
+                  <li class="list-group-item"><button class="btn window-item">Sfondo chat</button></li>
+                  <li class="list-group-item"><button class="btn window-item">Colore chatbox</button></li>
+                  <li class="list-group-item btn-group dropstart">
+                    <button class="dropdown-item btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Font</button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item">Arial</a></li>
+                      <li><a class="dropdown-item">Times New Roman</a></li>
+                      <li><a class="dropdown-item">Courier New</a></li>
+                      <li><a class="dropdown-item">Verdana</a></li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item"><button class="btn window-item">Colore font</button></li>
                 </ul>
               </div>
+
+              <button class="btn nav-link" id="settings-img-container">
+                <%= image_tag('settings.svg', alt: "", class: "settings-img") %>
+              </button>
+
             </div>
 
           </div>
@@ -86,10 +96,13 @@
       <!--  ----------------------------------------Navbar----------------------------------------  -->
 
     </header>
+
+
      <!--   things for login/logout alerts
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
       -->
+
     <%= yield %>
 
   <% flash.each do |name, msg| %>
