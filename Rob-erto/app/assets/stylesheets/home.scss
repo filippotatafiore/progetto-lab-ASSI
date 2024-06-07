@@ -35,6 +35,7 @@
     justify-content: center;
     align-items: center;
     font-size: 110%;
+    font-family: Arial;
 
     height: 8%;
 
@@ -47,7 +48,6 @@
 
 .chatflow_container{
     background-color: gray;
-    color: white;
     font-size: 70%;
 
     //margin: 0px auto;
@@ -84,7 +84,6 @@
 }
 
 .chatbox p{             /* chatbox vere e proprie (contenitori delle stringhe) */
-    color: white;
     padding: 12px 16px;
 
     font-size: 110%;
