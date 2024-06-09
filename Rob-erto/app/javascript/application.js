@@ -73,8 +73,8 @@ chatbox_color_1.addEventListener('click', function() {
     aggiornaChatboxColor();
 });
 chatbox_color_2.addEventListener('click', function() {
-    selected_incoming_color = 'darkblue';
-    selected_outgoing_color = 'Salmon';
+    selected_incoming_color = '#000066';
+    selected_outgoing_color = '#006666';
     aggiornaChatboxColor();
 });
 chatbox_color_3.addEventListener('click', function() {
@@ -118,7 +118,7 @@ font_color_2.addEventListener('click', function() {
     aggiornaFontColor();
 });
 font_color_3.addEventListener('click', function() {
-    selected_font_color = 'lightblue';
+    selected_font_color = '#0099FF';
     aggiornaFontColor();
 });
 
