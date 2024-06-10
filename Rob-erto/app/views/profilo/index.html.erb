@@ -11,7 +11,14 @@
                 <% end %>
             <% end %>
             <% else %>
+            <div class="popup" id="img-window">
+                <h2>Seleziona il tuo avatar!</h2>
+                <div id="immaginiProfilo">
+                </div>
+                <button class="button_1" onclick="closePopup()">OK</button>
+            </div>
             <p>Welcome <%= current_user.name %></p>
+            <button onclick="openPopup()">open popup</button>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
             <div class="border-top mt-2 text-center">
                 <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
@@ -34,4 +41,8 @@
 </div>
 <div class="blur-background"></div>
 <%= javascript_include_tag 'letters' %>
+<script>
+    var assetPaths = <%= (1..38).map { |i| asset_path("account/img#{i}.png") }.to_json.html_safe %>;
+</script>
+<%= javascript_include_tag 'account' %>
 

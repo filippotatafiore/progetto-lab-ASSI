@@ -37,5 +37,159 @@
     transform: translate(-50%, -50%);
     user-select: none;
   }
+
+
+  
+  main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+
+    gap: 5%;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding-bottom: 10%;
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+}
+
+#img-container{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    right: 10%;
+}
+
+.etichetta {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.user-input{
+    font-size: 120%;
+    padding: 5px;
+    border-radius: var(--borderRadius);
+    flex-grow: 1;
+    width: fit-content;
+
+    border: 4px solid hsl(calc(var(--colore) + 30), 53%, 41%);
+}
+
+.settore{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 1%;
+
+    transition: opacity 0.6s ease;
+}
+.settore:hover{
+    transition: 0.3s ease;
+    /*transform: scale(1.1); DA PROBLEMI CON IMMAGINI PROFILO*/
+}
+
+
+#immagineProfilo {
+    width: auto;
+    height: auto;
+    max-width: 60%;
+    max-height: 90%;
+    min-width: 200px;
+    min-height: 200px;
+    aspect-ratio: 1 / 1;
+}
+
+.popup{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 23vw;
+    width: 23vw;
+    margin: auto;
+    background: white;
+    border-radius: var(--borderRadius);
+    transform: scale(0);
+    text-align: center;
+    padding: 20px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: light-dark(white, black);
+    color: light-dark(black, white);
+    box-shadow: 0 0 1em hsl(calc(blue + 30), 53%, 41%);
+    z-index: 9999;
+}
+
+#immaginiProfilo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    overflow: scroll;
+}
+
+#immaginiProfilo::-webkit-scrollbar {
+    display: none;
+  }
+
+.open-popup{
+    transform: scale(1);
+}
+
+.popup-img{
+    margin: 0 5px;
+    width: 80px;
+    height: 80px;
+}
+
+@media (min-width: 1024px) {
+    .etichetta {
+        font-size: large;
+    }
+    h2 {
+        font-size: xx-large;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .etichetta {
+        font-size: medium;
+    }
+    h2 {
+        font-size: x-large;
+    }
+}
+@media (max-width: 767px) {
+    .etichetta {
+        font-size: small;
+    }
+    h2 {
+        font-size: large;
+    }
+    main{
+        grid-template-columns: 1fr;
+    }
+    #container_vuoto{
+        display: none;
+    }
+}
+
+
+
+#usernameProfilo{
+    color: hsl(calc(var(--colore) + 30), 53%, 41%);
+}
+
   
   
