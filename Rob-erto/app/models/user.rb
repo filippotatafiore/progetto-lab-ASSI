@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :friends, through: :friendships
 
+  before_create :set_default_profile_image
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
@@ -17,6 +19,12 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  private
+
+  def set_default_profile_image
+    self.profile_image ||= 0
   end
 
 end

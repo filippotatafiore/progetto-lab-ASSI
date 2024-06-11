@@ -2,12 +2,12 @@
     <div class="row justify-content-center custom-height">
         <div class="col-12 col-md-8 col-lg-6">
         <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
-            <p>Welcome to your profile section!</p>
+            <p>Benvenuto nella tua sezione Profilo!</p>
             <% unless user_signed_in? %>
-            <p>Haven't you logged in yet or are you a new user?</p>
+            <p>Non hai ancora effettuato il login oppure sei un nuovo utente?</p>
             <%- if devise_mapping.omniauthable? %>
                 <%- resource_class.omniauth_providers.each do |provider| %>
-                <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-primary mb-2" %>
+                <%= button_to "Entra con #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-primary mb-2" %>
                 <% end %>
             <% end %>
             <% else %>
@@ -15,11 +15,21 @@
                 <h2>Seleziona il tuo avatar!</h2>
                 <div id="immaginiProfilo">
                 </div>
-                <button class="button_1" onclick="closePopup()">OK</button>
+                <button class="button_1 btn btn-danger" onclick="closePopup()">INDIETRO</button>
             </div>
-            <p>Welcome <%= current_user.name %></p>
-            <button onclick="openPopup()">open popup</button>
+            <div class="user-informations">
+                <img src="<%= asset_path("account/img#{current_user.profile_image}.png") %>" alt="avatar" id="avatar" class="avatar">
+                <p class="username" data-username="<%= current_user.name %>"><%= current_user.name %></p>
+            </div>
+            <p>altre informazioni:</p>
+            <p>email: <%= current_user.email %></p>
+            <div>
+                <p>Non ti piace l'immagine profilo?</p>
+                <button class="btn btn-primary" onclick="openPopup()">Cambia avatar!</button>
+            </div>
+            <br>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+
             <div class="border-top mt-2 text-center">
                 <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
                 <ul class="d-inline-block text-left">

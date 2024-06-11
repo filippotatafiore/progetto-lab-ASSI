@@ -1,3 +1,5 @@
+let username = document.querySelector('.username').dataset.username;
+let token = document.querySelector('[name="csrf-token"]').content;
 
 function openPopup() {
     let popup = document.getElementById("img-window");
@@ -9,23 +11,29 @@ function closePopup() {
     popup.classList.remove("open-popup");
 }
 
-// async function caricaImmagine(x) {
+async function caricaImmagine(x) {
+    let imageID = x+1;
+    let datiDaInviare = {
+        image: imageID,
+    };
 
-//     let datiDaInviare = {
-//         username: get('username'),
-//         immagine: x,
-//         operazione: 'setImmagineProfilo'
-//     };
+    let response = await fetch(`/users/${username}/update_profile_image`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token
+        },
+        body: JSON.stringify(datiDaInviare)
+    });
 
-//     let datiRicevuti = await inviaDatiAlServer(datiDaInviare);
+    let datiRicevuti = await response.json();
 
-//     if (datiRicevuti['messaggio'] == 'Immagine profilo caricata') {
-//         //console.log("Immagine caricata nel server");
-//         aggiornaProfilo();
-//     }
+    if (datiRicevuti['message'] == 'Immagine profilo caricata') {
+        document.querySelector('.avatar').src = assetPaths[x];
+    }
 
-//     closePopup();
-// }
+    closePopup();
+}
 
 
 
@@ -34,6 +42,8 @@ for (var i = 0; i < assetPaths.length; i++) {
     let img = document.createElement('img');
     img.src = assetPaths[i];
     img.classList.add('popup-img');
+    let imgId = 'img-' + (i+1);
+    img.classList.add(imgId);
     img.setAttribute('onclick', 'caricaImmagine(' + i + ')');
     document.getElementById('immaginiProfilo').appendChild(img);
 }
