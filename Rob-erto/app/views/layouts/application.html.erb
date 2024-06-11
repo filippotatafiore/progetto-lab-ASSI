@@ -131,6 +131,8 @@
   <% flash.each do |name, msg| %>
   <div class="flash" data-title="<%= name %>" data-message="<%= msg %>" data-type="<%= name == 'notice' ? 'success' : 'error' %>" style="display: none;"></div>
   <% end %>
+  <div class="blur-background"></div>
+  <%= javascript_include_tag 'letters' %>
   </body>
 
 </html>

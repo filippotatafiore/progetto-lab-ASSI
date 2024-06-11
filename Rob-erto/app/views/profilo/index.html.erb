@@ -39,8 +39,6 @@
         </div>
     </div>
 </div>
-<div class="blur-background"></div>
-<%= javascript_include_tag 'letters' %>
 <script>
     var assetPaths = <%= (1..38).map { |i| asset_path("account/img#{i}.png") }.to_json.html_safe %>;
 </script>

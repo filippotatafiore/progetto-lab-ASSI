@@ -25,6 +25,7 @@
     width: 50vw;
     height: 65vh;
     min-width: 300px; /* Imposta una larghezza minima per evitare che il chatflow diventi troppo piccolo */
+    z-index: 1; /*piano base*/	
 }
 
 .chat-header{
