@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
     #@first_visit = 'not first visit'
     
-    if session[:first_visit].nil?   # prima volta che si accede alla pagina
+    if session[:first_visit].nil?   # primo accesso alla pagina
       reset_session
       session[:first_visit] = false
       #@first_visit = 'first visit'
@@ -25,6 +25,8 @@ class HomeController < ApplicationController
       nuovaChat.nome = 'Chat con AI'
       nuovaChat.save          # Salva la chat nel database
 
+      session[:user_id] = nuovo_base_user.id
+      session[:user_name] = nuovo_base_user.name
       session[:chat_id] = nuovaChat.id
       session[:chat_name] = nuovaChat.nome
 
@@ -34,9 +36,20 @@ class HomeController < ApplicationController
 
     end
 
+    if session[:user_name] != 'base_user'  # utente loggato
+      # TODO: mostrare chat dell'utente loggato
+
+
+      @loggato = 'loggato'        # <--DEBUG
+    else
+      @loggato = 'non loggato'        # <--DEBUG
+    end
+
     # messaggi da mostrare nella pagina
     @messages = Message.order(created_at: :asc)
-    # nome della chat
+    # nome dell'user corrente
+    @user_name = session[:user_name]
+    # nome della chat corrente
     @chat_name = session[:chat_name]
     # modello di IA
     @ai_model = session[:ai_model]
