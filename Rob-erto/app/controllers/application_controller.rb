@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
     # ------------------------------------------------------------------ rende disponibile alcuni metodi di devise alle altre viste
     helper_method :devise_mapping, :resource_class, :resource_name
+    protect_from_forgery with: :exception
 
     def devise_mapping
         Devise.mappings[:user] # or replace :user with whatever model you have
