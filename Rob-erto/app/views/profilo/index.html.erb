@@ -11,6 +11,7 @@
                 <% end %>
             <% end %>
             <% else %>
+            <meta name="csrf-token" content="<%= form_authenticity_token %>">
             <div class="popup" id="img-window">
                 <h2>Seleziona il tuo avatar!</h2>
                 <div id="immaginiProfilo">
@@ -19,16 +20,41 @@
             </div>
             <div class="user-informations">
                 <img src="<%= asset_path("account/img#{current_user.profile_image}.png") %>" alt="avatar" id="avatar" class="avatar">
-                <p class="username" data-username="<%= current_user.name %>"><%= current_user.name %></p>
+                <p class="username" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
             </div>
-            <p>altre informazioni:</p>
-            <p>email: <%= current_user.email %></p>
-            <div>
-                <p>Non ti piace l'immagine profilo?</p>
+            <div class="border-top">
+                <p>Informazioni Generali:</p>
+                <p>Email: <%= current_user.email %></p>
+                <p>Username: <%= current_user.name %></p>
+                <p>Utente PRO: Da gestire</p>
+            </div> 
+            <div class="border-top">
+                <p>Personalizza il tuo profilo!</p>
                 <button class="btn btn-primary" onclick="openPopup()">Cambia avatar!</button>
             </div>
             <br>
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+            <p>Non ti piace il nickname?</p>
+            <div class="d-flex justify-content-center align-items-center">
+                <%= form_with(model: current_user, url: update_nickname_path, method: :patch, local: true, html: { class: 'row g-3' }) do |form| %>
+                <div class="col-auto">
+                    <%= form.label :nickname, class: 'visually-hidden' %>
+                    <%= form.text_field :nickname, class: 'form-control', placeholder: 'Nickname' %>
+                </div>
+                <div class="col-auto">
+                    <%= form.submit "Cambia nickname", class: "btn btn-primary mb-3" %>
+                </div>
+                <% end %>
+            </div>
+            <div class="border-top">
+                <p>Vuoi cambiare profilo?</p>
+                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+            </div>
+            
+
+            <div class="border-top mt-2 text-center">
+                <p>Non sei soddisfatto? Puoi cancellare l'account se vuoi ma poi non sarai mai più uno di noi.</p>
+                <%= button_to 'Elimina account', user_registration_path, method: :delete, class: "btn btn-danger",data: { confirm: 'Sei sicuro di voler eliminare il tuo account?' } %>
+            </div>
 
             <div class="border-top mt-2 text-center">
                 <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  

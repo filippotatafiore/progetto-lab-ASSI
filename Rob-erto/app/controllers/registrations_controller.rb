@@ -13,7 +13,8 @@ class RegistrationsController < Devise::RegistrationsController
                                   :email,
                                   :password,
                                   :password_confirmation,
-                                  :current_password)
+                                  :current_password,
+                                  :nickname)
   end
 
 end

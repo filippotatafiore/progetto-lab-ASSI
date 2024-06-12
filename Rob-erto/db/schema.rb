@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_10_202034) do
+ActiveRecord::Schema.define(version: 2024_06_12_132945) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "user_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2024_06_10_202034) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "profile_image"
+    t.string "nickname"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["sign_in_count"], name: "index_users_on_sign_in_count"

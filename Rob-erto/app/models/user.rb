@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   before_create :set_default_profile_image
 
+  before_save :set_default_nickname
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
@@ -25,6 +27,10 @@ class User < ApplicationRecord
 
   def set_default_profile_image
     self.profile_image ||= 0
+  end
+
+  def set_default_nickname
+    self.nickname ||= self.name
   end
 
 end

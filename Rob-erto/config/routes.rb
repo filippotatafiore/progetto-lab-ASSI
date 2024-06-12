@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get 'set_aimodel/:ai_model', to: 'home#set_aimodel', as: 'set_aimodel'  # per settare il modello di IA
 
+  patch '/users/update_nickname', to: 'users#update_nickname', as: 'update_nickname' # per aggiornare il nickname
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'callbacks', sessions: 'sessions' }
