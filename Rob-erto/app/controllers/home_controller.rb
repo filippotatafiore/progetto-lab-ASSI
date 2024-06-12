@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
     #@first_visit = 'not first visit'
     
-    if session[:first_visit].nil?   # primo accesso alla pagina
+    if session[:first_visit].nil? || session[:first_visit] == true   # primo accesso alla pagina
       reset_session
       session[:first_visit] = false
       #@first_visit = 'first visit'
@@ -22,29 +22,51 @@ class HomeController < ApplicationController
       # ------------------ Crea nuova chat per il base-user
       nuovaChat = Chat.new
       nuovaChat.user_id = nuovo_base_user.id
-      nuovaChat.nome = 'Chat con AI'
+      nuovaChat.nome = 'Chatta con AI'
       nuovaChat.save          # Salva la chat nel database
 
       session[:user_id] = nuovo_base_user.id
-      session[:user_name] = nuovo_base_user.name
       session[:chat_id] = nuovaChat.id
       session[:chat_name] = nuovaChat.nome
-
 
       session[:messages] = []
       session[:ai_model] = 'mixtral-8x7b-32768'
 
     end
 
+    session[:user_name] = User.where('users.id = ?', session[:user_id]).first.name
+
     if session[:user_name] != 'base_user'  # utente loggato
-      # TODO: mostrare chat dell'utente loggato
-
-
       @loggato = 'loggato'        # <--DEBUG
-    else
+
+      #if Chat.where(user_id: session[:user_id]).exists?    # l'utente ha già una o più chat
+        # mostrare chat dell'utente loggato
+        # TODO ...
+
+      # else
+        # creare nuova chat per l'utente loggato
+
+        #nuovaChatLoggato = Chat.new
+        #nuovaChatLoggato.user_id = session[:user_id]
+        #nuovaChatLoggato.nome = 'Nuova Chat'
+        #nuovaChatLoggato.save          # Salva la chat nel database
+
+        #session[:user_name] = User.where('users.id = ?', session[:user_id]).name
+        #session[:chat_id] = nuovaChat.id
+        #session[:chat_name] = nuovaChat.nome
+
+        #session[:messages] = []
+
+        #@messages = nil
+
+      # end
+
+    else    # condizione di debug, da eliminare
       @loggato = 'non loggato'        # <--DEBUG
     end
 
+
+    # ---------------- variabili da mostrare nella pagina ----------------
     # messaggi da mostrare nella pagina
     @messages = Message.order(created_at: :asc)
     # nome dell'user corrente
@@ -53,6 +75,7 @@ class HomeController < ApplicationController
     @chat_name = session[:chat_name]
     # modello di IA
     @ai_model = session[:ai_model]
+    # ---------------- variabili da mostrare nella pagina ----------------
 
   end
 
