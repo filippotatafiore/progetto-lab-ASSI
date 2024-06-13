@@ -1,6 +1,7 @@
 
 Rails.application.routes.draw do
 
+  get 'amici/index'
   get 'profilo/index'
   get 'help/index'
   get 'home/index'
@@ -31,5 +32,10 @@ Rails.application.routes.draw do
 
   patch 'users/:id/update_profile_image', to: 'profilo#update_profile_image' # per aggiornare l'immagine del profilo
 
+  resources :users do
+    get 'amici', on: :collection
+  end
+
+  resources :amici
 
 end

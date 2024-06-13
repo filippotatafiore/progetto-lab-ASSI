@@ -1,0 +1,79 @@
+<<div class="container z-index-1">
+    <div class="row justify-content-center custom-height">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
+            <h1>Amici</h1>
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>Friend ID</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @friendships.each do |friendship| %>
+                        <tr>
+                            <td><%= friendship.friend_id %></td>
+                            <td><%= friendship.created_at %></td>
+                            <td><%= friendship.updated_at %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                    </table>
+
+                    <h1>Richieste di amicizia pendenti</h1>
+
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>Friend ID</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% current_user.friendships.where(status: 0).each do |friendship| %>
+                        <tr>
+                            <td><%= friendship.friend_id %></td>
+                            <td><%= friendship.created_at %></td>
+                            <td><%= friendship.updated_at %></td>
+                            <td>
+                            <%= button_to 'Accetta', accept_amico_path(friendship), method: :put %>
+                            <%= button_to 'Rifiuta', amico_path(friendship), method: :delete, data: { confirm: 'Sei sicuro?' } %>
+                            </td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                    </table>
+
+                    <h1>Invia una richiesta di amicizia</h1>
+
+                    <%= form_with model: @friendship, url: {controller: "amici", action: "create"}, local: true do |form| %>
+                    <% if @friendship.errors.any? %>
+                        <div id="error_explanation">
+                        <h2><%= pluralize(@friendship.errors.count, "error") %> prohibited this friendship from being saved:</h2>
+
+                        <ul>
+                        <% @friendship.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                        </div>
+                    <% end %>
+
+                    <div class="field">
+                        <%= form.label :friend_id %>
+                        <%= form.text_field :friend_id %>
+                    </div>
+
+                    <div class="actions">
+                        <%= form.submit %>
+                    </div>
+                    <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
