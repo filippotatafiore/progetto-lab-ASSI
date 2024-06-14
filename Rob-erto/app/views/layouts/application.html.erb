@@ -47,9 +47,11 @@
                 <%= link_to "Profilo", profilo_index_path, class: "nav-link"%>
               </li>
 
-              <li class="nav-item">
-                <%= link_to "Amici", amici_index_path, class: "nav-link"%>
-              </li>
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "Amici", amici_index_path, class: "nav-link"%>
+                </li>
+              <% end %>
 
               <li class="nav-item">
                 <%= link_to "Help", help_index_path, class: "nav-link"%>

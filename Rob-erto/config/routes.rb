@@ -35,7 +35,11 @@ Rails.application.routes.draw do
   resources :users do
     get 'amici', on: :collection
   end
-
-  resources :amici
+  resources :amici do
+    member do
+      put :accept
+      delete :destroy
+    end
+  end
 
 end

@@ -14,12 +14,22 @@ class AmiciController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id], status: 0)
+    @friend = User.find_by(email: params[:friendship][:friend_email])
+    if @friend
+      existing_friendship = Friendship.find_by(user_id: current_user.id, friend_id: @friend.id)
+      if existing_friendship
+        redirect_to amici_index_path, alert: 'Esiste già una richiesta di amicizia.'
+      else
+        @friendship = current_user.friendships.build(friend_id: @friend.id, status: 0)
 
-    if @friendship.save
-      redirect_to amici_index_path, notice: 'Richiesta di amicizia inviata.'
+        if @friendship.save
+          redirect_to amici_index_path, notice: 'Richiesta di amicizia inviata.'
+        else
+          redirect_to amici_index_path, alert: @friendship.errors.full_messages.to_sentence
+        end
+      end
     else
-      redirect_to amici_index_path, alert: @friendship.errors.full_messages.to_sentence
+      redirect_to amici_index_path, alert: 'Utente non trovato.'
     end
   end
 
@@ -36,14 +46,24 @@ class AmiciController < ApplicationController
 
   def destroy
     @friendship = Friendship.find(params[:id])
-    @friendship.destroy
-    redirect_to amici_path, notice: 'Richiesta di amicizia rifiutata.'
+    @mirror_friendship = Friendship.find_by(user_id: @friendship.friend_id, friend_id: @friendship.user_id, status: 1)
+
+    if @friendship.destroy
+      @mirror_friendship.destroy if @mirror_friendship
+      redirect_to amici_index_path, notice: 'Richiesta di amicizia cancellata.'
+    else
+      redirect_to amici_index_path, alert: 'Si è verificato un errore nel rifiutare la richiesta di amicizia.'
+    end
   end
 
   def accept
     @friendship = Friendship.find(params[:id])
-    @friendship.update(status: 1)
-    redirect_to amici_path, notice: 'Richiesta di amicizia accettata.'
+    if @friendship.update(status: 1)
+      Friendship.create(user_id: @friendship.friend_id, friend_id: @friendship.user_id, status: 1)
+      redirect_to amici_index_path, notice: 'Richiesta di amicizia accettata.'
+    else
+      redirect_to amici_index_path, alert: 'Si è verificato un errore nell\'accettare la richiesta di amicizia.'
+    end
   end
 
   private
