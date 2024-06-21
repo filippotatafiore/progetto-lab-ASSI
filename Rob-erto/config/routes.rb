@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
-  post '/create', to: 'home#create' #per creare chat eventualmente quando si fa la logica
+  resource :chat
+  post 'create_chat', to: 'home#create_chat', as: 'create_chat'#per creare chat eventualmente quando si fa la logica
+  get 'mostra_chat/:chat_id', to: 'home#mostra_chat', as: 'mostra_chat'
 
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
 

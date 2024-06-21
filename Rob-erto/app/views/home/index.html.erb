@@ -1,16 +1,28 @@
 
-<div class="list_container">
-    <div class="title">
-        <%= button_to 'Crea chat', create_path, method: :post, data: { confirm: 'Are you sure?' }, class: 'crea' %>
-    </div>
-    <div class="list">
-            <%= render partial: "home/chat_list" %>
-    </div>             
-</div>
-
-
 <%= @loggato %>     <!-- debug (da eliminare) -->
+         
 
+<% if @visibility %>
+<div class="contenitore">
+    <div class="title">
+        <%= button_to 'Crea chat', create_chat_path(), class: 'crea' %> 
+    </div>
+    <div class="list"> 
+            <div class="partial_test">
+            <% if !@chats.empty? %> 
+                <% @chats.each do |chat| %>
+                    <%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %>
+                    <%= chat.nome %>
+                <% end %>
+            <%else%>
+                <p> no chat </p>
+            <%end%>
+            </div>
+    </div>             
+</div> 
+<%end%>
+
+ 
 <div class="chat-area">
     <div class="chat-header">
         <div id="nome-user"><%= @user_name %></div>

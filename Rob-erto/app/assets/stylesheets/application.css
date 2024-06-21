@@ -20,7 +20,7 @@ header{
 }
 
 .blur-background{
-    position: absolute;
+    position: relative;
     background-color:var(--background-color);
     top: 0;
     left: 0;

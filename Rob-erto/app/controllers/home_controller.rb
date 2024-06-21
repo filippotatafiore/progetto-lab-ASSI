@@ -38,7 +38,7 @@ class HomeController < ApplicationController
 
     if session[:user_name] != 'base_user'  # utente loggato
       @loggato = 'loggato'        # <--DEBUG
-
+      @visibility = true
       #if Chat.where(user_id: session[:user_id]).exists?    # l'utente ha già una o più chat
         # mostrare chat dell'utente loggato
         # TODO ...
@@ -63,12 +63,14 @@ class HomeController < ApplicationController
 
     else    # condizione di debug, da eliminare
       @loggato = 'non loggato'        # <--DEBUG
+      @visibility = false
+  
     end
 
 
     # ---------------- variabili da mostrare nella pagina ----------------
     # messaggi da mostrare nella pagina
-    @messages = Message.order(created_at: :asc)
+    @messages = Message.where('chat_id = ?', session[:chat_id]).order(created_at: :asc)
     # nome dell'user corrente
     @user_name = session[:user_name]
     # nome della chat corrente
@@ -76,7 +78,7 @@ class HomeController < ApplicationController
     # modello di IA
     @ai_model = session[:ai_model]
     # ---------------- variabili da mostrare nella pagina ----------------
-
+    @chats = Chat.where('chats.user_id = ? ', session[:user_id])
   end
 
 
@@ -205,6 +207,23 @@ class HomeController < ApplicationController
     redirect_to action: :index
   end
 
+
+
+  def new
+    @chat = Chat.new
+  end
+
+  def create_chat 
+    @chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
+    redirect_to action: :index
+  end
+
+  def mostra_chat
+    @message = Message.where('chat_id = ?', params[:chat_id])
+    session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
+    session[:chat_id] = params[:chat_id]
+    redirect_to action: :index
+  end
 
 
   # ------------------------------------------------------------------ cambiare modello di ia
