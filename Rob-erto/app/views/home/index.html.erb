@@ -35,6 +35,12 @@
         <div id="nome-modello"><%= @ai_model %></div>
     </div>
 
+    <% if @chat_not_present %>
+        <div class="chatflow_container">
+            <!-- domande consigliate da porre alla IA -->
+            DOMANDE CONSIGLIATE ...
+        </div>
+    <% else %>
     <div class="chatflow_container">
 
         <ul class="chatflow">
@@ -64,6 +70,8 @@
 
         </ul>
     </div>
+    <%end%>
+
 </div>
 
 

@@ -1,12 +1,10 @@
 class HomeController < ApplicationController
 
   def index
-    #@first_visit = 'not first visit'
     
     if session[:first_visit].nil? || session[:first_visit] == true   # primo accesso alla pagina
       reset_session
       session[:first_visit] = false
-      #@first_visit = 'first visit'
 
       # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
       #User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
@@ -34,51 +32,41 @@ class HomeController < ApplicationController
 
     end
 
+
     session[:user_name] = User.where('users.id = ?', session[:user_id]).first.name
 
+
     if session[:user_name] != 'base_user'  # utente loggato
-      @loggato = 'loggato'        # <--DEBUG
-      @visibility = true
-      #if Chat.where(user_id: session[:user_id]).exists?    # l'utente ha già una o più chat
-        # mostrare chat dell'utente loggato
-        # TODO ...
 
-      # else
-        # creare nuova chat per l'utente loggato
+      if session[:primo_accesso_login] == 0   # primo accesso da utente loggato
+        session[:primo_accesso_login] = 1
+        session[:chat_not_present] = true
+      end
 
-        #nuovaChatLoggato = Chat.new
-        #nuovaChatLoggato.user_id = session[:user_id]
-        #nuovaChatLoggato.nome = 'Nuova Chat'
-        #nuovaChatLoggato.save          # Salva la chat nel database
+      @visibility = true    # visibilità della lista chat
 
-        #session[:user_name] = User.where('users.id = ?', session[:user_id]).name
-        #session[:chat_id] = nuovaChat.id
-        #session[:chat_name] = nuovaChat.nome
-
-        #session[:messages] = []
-
-        #@messages = nil
-
-      # end
-
-    else    # condizione di debug, da eliminare
-      @loggato = 'non loggato'        # <--DEBUG
+    else
+      session[:primo_accesso_login] = 0
       @visibility = false
+      session[:chat_not_present] = false
   
     end
 
 
     # ---------------- variabili da mostrare nella pagina ----------------
+    # mostra la chat nella chat-area
+    @chat_not_present = session[:chat_not_present] 
     # messaggi da mostrare nella pagina
     @messages = Message.where('chat_id = ?', session[:chat_id]).order(created_at: :asc)
-    # nome dell'user corrente
-    @user_name = session[:user_name]
     # nome della chat corrente
     @chat_name = session[:chat_name]
+    # nome dell'user corrente
+    @user_name = session[:user_name]
     # modello di IA
     @ai_model = session[:ai_model]
-    # ---------------- variabili da mostrare nella pagina ----------------
+    # lista delle chat dell'utente loggato
     @chats = Chat.where('chats.user_id = ? ', session[:user_id])
+    # ---------------- variabili da mostrare nella pagina ----------------
   end
 
 
@@ -208,7 +196,7 @@ class HomeController < ApplicationController
   end
 
 
-
+  # ------------------------------------------------------------------ creazione chat
   def new
     @chat = Chat.new
   end
@@ -218,19 +206,23 @@ class HomeController < ApplicationController
     redirect_to action: :index
   end
 
+  # ------------------------------------------------------------------ mostrare chat
   def mostra_chat
     @message = Message.where('chat_id = ?', params[:chat_id])
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
+    session[:chat_not_present] = false     # mostra la chat nel chatflow_container
     redirect_to action: @chat
   end
 
+  # ------------------------------------------------------------------ eliminare chat
   def delete_chat
     @chat = Chat.find(params[:id])
     @chat.destroy
     redirect_to action: :index
   end
 
+  
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel
 
