@@ -1,17 +1,24 @@
 require 'rails_helper'
-Capybara.default_driver = :selenium
+
+# configurazione Capybara (utilizza driver di chrome)
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.default_driver = :selenium_chrome
+Capybara.javascript_driver = :selenium_chrome
+Capybara.default_max_wait_time = 5  # Aumenta il tempo massimo di attesa
+
 
 RSpec.describe "Chat", type: :feature do
   it "sends a message to the AI and receives a response" do
     visit root_path
     fill_in "user_input", with: "Hello!"
+    #expect(page).to have_field("user_input", with: "Hello!")
     click_button "send_button"
 
-    Capybara.default_max_wait_time = 5  # Aumenta il tempo massimo di attesa
-    # Aspetta che i chatbox appaiano sulla pagina (dopo esecuzione di send_msg)
-    expect(page).to have_css(".chatbox.outgoing:last-child p", text: "Hello!", visible: true)
-    expect(page).to have_css(".chatbox.incoming:last-child p", text: /./, visible: true)
-
+    # Aspetta che i chatbox appaiano sulla pagina (dopo esecuzione di send_msg) e verifica il contenuto
+    expect(page).to have_xpath("(//li[contains(@class, 'chatbox outgoing')])[last()]/p", text: "Hello!", visible: true)
+    expect(page).to have_xpath("(//li[contains(@class, 'chatbox incoming')])[last()]/p", text: /./, visible: true)
   end
 end
 

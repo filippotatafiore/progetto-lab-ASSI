@@ -79,7 +79,7 @@
 
 
 
-<% if !session[:chat_not_present]%>
+<% if !@chat_not_present%>
 <div class="user-area">
         <div class="user-input-container">
             <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
