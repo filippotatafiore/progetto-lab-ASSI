@@ -1,5 +1,5 @@
 
-<% if @visibility %>
+<% if @list_visibility %>
 <div class="contenitore">
     <div class="title">
         <%= button_to 'Crea chat', create_chat_path(), class: 'crea' %> 
@@ -9,24 +9,26 @@
             <% if !@chats.empty? %> 
                 <% @chats.each do |chat| %>
                 <ul>
-                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %><%= chat.nome %>
+                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %> <%= @chat_name %>
                     <button type="button" class="reload-button" data-bs-toggle="dropdown">
                         <%= image_tag('chatmenu.png', alt: "", class: "button-img") %>
                     </button>
                     <ul class="dropdown-menu">
                         <li><%= button_to "Cancella chat", delete_chat_path(chat), method: :delete, class: "dropdown-item" %></li>
+                        
+
                     </ul>
                     </li>
                 </ul>
                 <% end %>
             <%else%>
-                nochat
+               Non hai nessuna chat creata!
             <%end%>
             </div>
     </div>             
 </div> 
 <%end%>
-
+<span> SIUMMMMM <%= @input_visibility %> </span>
  
 <div class="chat-area">
     <div class="chat-header">
@@ -38,7 +40,8 @@
     <% if @chat_not_present %>
         <div class="chatflow_container">
             <!-- domande consigliate da porre alla IA -->
-            DOMANDE CONSIGLIATE ...
+            Crea una nuova chat o apri una chat esistente per parlare con me e prova a chiedermi una di queste domande 
+            DOMANDA 1 DOMANDA 2 DOMANDA 3
         </div>
     <% else %>
     <div class="chatflow_container">
@@ -76,7 +79,7 @@
 
 
 
-
+<% if !session[:chat_not_present]%>
 <div class="user-area">
         <div class="user-input-container">
             <%= form_tag('/send_msg', method: :post, id: "user_input_form") do %>
@@ -119,5 +122,6 @@
 
 
 </div>
+<%end%>
 
 <%= javascript_include_tag "home.js" %>

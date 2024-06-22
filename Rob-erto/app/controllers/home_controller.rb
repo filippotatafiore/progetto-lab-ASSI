@@ -21,7 +21,7 @@ class HomeController < ApplicationController
       nuovaChat = Chat.new
       nuovaChat.user_id = nuovo_base_user.id
       nuovaChat.nome = 'Chatta con AI'
-      nuovaChat.save          # Salva la chat nel database
+      nuovaChat.save       # Salva la chat nel database
 
       session[:user_id] = nuovo_base_user.id
       session[:chat_id] = nuovaChat.id
@@ -33,26 +33,27 @@ class HomeController < ApplicationController
     end
 
 
-    session[:user_name] = User.where('users.id = ?', session[:user_id]).first.name
+    session[:user_name] = User.where('users.id = ?', session[:user_id]).first.nome
 
 
     if session[:user_name] != 'base_user'  # utente loggato
 
       if session[:primo_accesso_login] == 0   # primo accesso da utente loggato
         session[:primo_accesso_login] = 1
-        session[:chat_not_present] = true
+        session[:chat_not_present] = true 
+
       end
 
-      @visibility = true    # visibilità della lista chat
+      @list_visibility = true    # visibilità della lista chat
 
     else
       session[:primo_accesso_login] = 0
-      @visibility = false
+      @list_visibility = false
       session[:chat_not_present] = false
   
     end
 
-
+    
     # ---------------- variabili da mostrare nella pagina ----------------
     # mostra la chat nella chat-area
     @chat_not_present = session[:chat_not_present] 
@@ -66,6 +67,7 @@ class HomeController < ApplicationController
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato
     @chats = Chat.where('chats.user_id = ? ', session[:user_id])
+    
     # ---------------- variabili da mostrare nella pagina ----------------
   end
 
@@ -212,15 +214,20 @@ class HomeController < ApplicationController
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
     session[:chat_not_present] = false     # mostra la chat nel chatflow_container
-    redirect_to action: @chat
+    redirect_to action: :index
   end
 
   # ------------------------------------------------------------------ eliminare chat
   def delete_chat
+   
     @chat = Chat.find(params[:id])
     @chat.destroy
+    session[:chat_not_present] = true
     redirect_to action: :index
+    
   end
+
+
 
   
   # ------------------------------------------------------------------ cambiare modello di ia
