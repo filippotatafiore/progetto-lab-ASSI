@@ -222,9 +222,14 @@ class HomeController < ApplicationController
     @message = Message.where('chat_id = ?', params[:chat_id])
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
-    redirect_to action: :index
+    redirect_to action: @chat
   end
 
+  def delete_chat
+    @chat = Chat.find(params[:id])
+    @chat.destroy
+    redirect_to action: :index
+  end
 
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel

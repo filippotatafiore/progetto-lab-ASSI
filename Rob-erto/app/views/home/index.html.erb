@@ -1,7 +1,4 @@
 
-<%= @loggato %>     <!-- debug (da eliminare) -->
-         
-
 <% if @visibility %>
 <div class="contenitore">
     <div class="title">
@@ -11,11 +8,19 @@
             <div class="partial_test">
             <% if !@chats.empty? %> 
                 <% @chats.each do |chat| %>
-                    <%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %>
-                    <%= chat.nome %>
+                <ul>
+                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %><%= chat.nome %>
+                    <button type="button" class="reload-button" data-bs-toggle="dropdown">
+                        <%= image_tag('chatmenu.png', alt: "", class: "button-img") %>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><%= button_to "Cancella chat", delete_chat_path(chat), method: :delete, class: "dropdown-item" %></li>
+                    </ul>
+                    </li>
+                </ul>
                 <% end %>
             <%else%>
-                <p> no chat </p>
+                nochat
             <%end%>
             </div>
     </div>             

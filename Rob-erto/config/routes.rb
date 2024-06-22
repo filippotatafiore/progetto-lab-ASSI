@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'change_theme', to: 'application#change_theme'  # per cambiare il tema
 
   delete '/home/:id/delete_message', to: 'home#delete_message', as: :delete_message  # per eliminare un messaggio
-
+  delete '/home/:id/delete_chat', to: 'home#delete_chat', as: :delete_chat
   get 'set_aimodel/:ai_model', to: 'home#set_aimodel', as: 'set_aimodel'  # per settare il modello di IA
 
   patch '/users/update_nickname', to: 'users#update_nickname', as: 'update_nickname' # per aggiornare il nickname
