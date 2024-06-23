@@ -8,14 +8,14 @@
 <% if @list_visibility %>
 <div class="contenitore">
     <div class="title">
-        <%= button_to 'Crea chat', create_chat_path(), class: 'crea' %> 
+        <%= button_to 'Crea chat', create_chat_path(), class: 'crea', id: 'crea_chat_button' %> 
     </div>
     <div class="list"> 
             <div class="partial_test">
             <% if !@chats.empty? %> 
                 <% @chats.each do |chat| %>
                 <ul>
-                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id) %> <%= chat.nome %>
+                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id), id: 'mostra_chat_link' %> <%= chat.nome %>
                     <button type="button" class="reload-button" data-bs-toggle="dropdown">
                         <%= image_tag('chatmenu.png', alt: "", class: "button-img") %>
                     </button>
