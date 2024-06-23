@@ -67,7 +67,7 @@ class HomeController < ApplicationController
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato
     @chats = Chat.where('chats.user_id = ? ', session[:user_id])
-    
+   
     # ---------------- variabili da mostrare nella pagina ----------------
   end
 
@@ -214,7 +214,7 @@ class HomeController < ApplicationController
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
     session[:chat_not_present] = false     # mostra la chat nel chatflow_container
-    redirect_to action: :index
+    redirect_to action: @chat
   end
 
   # ------------------------------------------------------------------ eliminare chat
@@ -227,7 +227,14 @@ class HomeController < ApplicationController
     
   end
 
-
+  def cambia_nome_chat
+    @chat = Chat.where('id = ?', params[:chat_id])
+    @chat.update(nome: params[:nome_chat])
+    if session[:chat_id] == params[:chat_id]
+      session[:chat_name] = params[:nome_chat]
+    end
+    redirect_to action: :index
+  end
 
   
   # ------------------------------------------------------------------ cambiare modello di ia

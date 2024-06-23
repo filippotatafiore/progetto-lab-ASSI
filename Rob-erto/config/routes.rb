@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resource :chat
   post 'create_chat', to: 'home#create_chat', as: 'create_chat'#per creare chat eventualmente quando si fa la logica
   get 'mostra_chat/:chat_id', to: 'home#mostra_chat', as: 'mostra_chat'
-
+  patch 'cambia_nome_chat/:chat_id', to: 'home#cambia_nome_chat', as: 'cambia_nome_chat'
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
 
   get 'change_theme', to: 'application#change_theme'  # per cambiare il tema
