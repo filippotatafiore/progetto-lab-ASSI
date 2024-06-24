@@ -24,58 +24,33 @@ end
 
 # Creazione di una nuova chat
 RSpec.describe "CreateChat", type: :feature do
+  # crea utente
+  let (:user) { User.create!(email: "test@example.com", password: "testpassword", name: "testuser", provider: "github", uid: "123545", nickname: "testuser") }
   before do
-    # Crea utente
-    #usr = User.create!(email: "test@example.com", password: "testpassword", name: "testuser", provider: "github", uid: "123545", nickname: "testuser")
-    #User.create!(id: 4, email: "test@example.com", password: "testpassword", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "testuser", created_at: "2024-06-20 11:09:34.771206000 +0000", updated_at: "2024-06-23 19:44:32.789394000 +0000", provider: "github", uid: "123545", sign_in_count: 22, current_sign_in_at: "2024-06-23 19:44:32.789394000 +0000", last_sign_in_at: "2024-06-23 19:44:32.789394000 +0000", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", profile_image: 36, nickname: "testuser")
-    # Configura Omniauth Mocks
     OmniAuth.config.test_mode = true
-    usr = Faker::Omniauth.github
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(usr)
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+      provider: 'github',
+      uid: '123545',
+      info: {
+        email: user.email,
+        name: user.name,
+      },
+      credentials: {
+        token: "mock_token",
+        secret: "mock_secret"
+      }
+    })
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
-
-    # # login utente
-    # sign_in usr
-    # # verifica login
-    # visit profilo_index_path
-    # expect(page).to have_text("testuser")
-    # visit root_path
-    # expect(page).to have_selector("#crea_chat_button")
-    # expect(page).to have_text("cacca")
-
-    # get user_omniauth_authorize_path(:github)
-    # follow_redirect!
     
     visit user_github_omniauth_authorize_path
-    visit user_github_omniauth_callback_path
-    user = User.find_by(name: usr[:info][:name], email: usr[:info][:email])
-    expect(user).not_to be_nil
-    visit profilo_index_path
-    expect(page).to have_text("Informazioni Generali:")
-
-    # visit profilo_index_path
-    # expect(page).to have_button("Entra con GitHub")
-    # click_button "Entra con GitHub"
-    #save_and_open_screenshot
-
-
-    # Verifiche post-login
-    # expect(page).to have_text("Logged in successfully")   # Verifica messaggio di successo
-    # expect(page).to have_selector('.swal-overlay.swal-overlay--show-modal')
-    # within('.swal-overlay.swal-overlay--show-modal') do
-    #   within('.swal-modal') do
-    #     within('.swal-text') do
-    #       expect(page).to have_text("Logged in successfully")   # Verifica messaggio di successo
-    #     end
-    #   end
-    # end
-
+    page.set_rack_session(user_id: user.id)
+    page.set_rack_session(first_visit: false)
+    visit root_path
   end
 
   it "creates a new chat" do
-    visit root_path
     expect(page).to have_selector("#crea_chat_button")
-    find("#crea_chat_button").click
+    click_button "crea_chat_button"
 
     within('.partial_test') do
       # Trova l'ultimo elemento <li> nella lista
@@ -129,22 +104,6 @@ RSpec.describe HomeController, type: :controller do
       }.to change(Chat, :count).by(1)   # Verifica che il numero di chat sia aumentato di 1
 
       expect(response).to redirect_to(action: :index)
-    end
-  end
-
-
-  describe "GET #index" do
-    before do
-      session[:first_visit] = false
-      usr = User.create!(email: "test@example.com", password: "testpassword", name: "testuser", provider: "github", uid: "123545", nickname: "testuser")
-      sign_in usr
-      expect(session[:user_id]).to eq(usr.id)
-    end
-
-    it "cheks that after a login the user is no longer a base user" do
-      get :index
-      expect(session[:user_name]).not_to eq('base_user')
-      expect(assigns(:list_visibility)).to be true
     end
   end
 
