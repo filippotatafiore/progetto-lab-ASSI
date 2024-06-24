@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'mostra_chat/:chat_id', to: 'home#mostra_chat', as: 'mostra_chat'
   patch 'cambia_nome_chat/:chat_id', to: 'home#cambia_nome_chat', as: 'cambia_nome_chat'
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
-
+  post '/invia_domanda/:domanda', to:'home#invia_domanda', as: 'invia_domanda'
   get 'change_theme', to: 'application#change_theme'  # per cambiare il tema
 
   delete '/home/:id/delete_message', to: 'home#delete_message', as: :delete_message  # per eliminare un messaggio

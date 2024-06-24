@@ -20,9 +20,8 @@
                         <%= image_tag('chatmenu.png', alt: "", class: "button-img") %>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><%= button_to "Cancella chat", delete_chat_path(chat), method: :delete, class: "dropdown-item" %></li>
+                        <li><%= button_to "Cancella chat", delete_chat_path(chat.id), method: :delete, class: "dropdown-item" %></li>
                         <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-<%= chat.id %>">Cambia nome chat</button>
-                        <%= chat.id %>
                     </ul>
                     </li>
                 </ul>
@@ -31,16 +30,16 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content bg-dark">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="testmodalLabel">Cambia il nome della chat</h5>
+                                        <h5 class="modal-title" id="testmodalLabel">Rinomina una chat</h5>
                                     </div>
                                     <div class="modal-body">
                                         <%= form_tag cambia_nome_chat_path(chat), method: :patch, :class => "form-horizontal" do %>
-                                                <%= label_tag 'reason', chat.id, :class => 'control-label' %>
+                                                <%= label_tag 'reason', "Inserisci il nuovo nome della chat", :class => 'control-label' %>
                                                 <%= text_field_tag :nome_chat, params[:nome_chat], :class => "form-control" %>
                                     </div>
                                     <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                            <%= submit_tag "Submit Approval", name: nil, class: "btn btn-success" %>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancella</button>
+                                            <%= submit_tag "Conferma", name: nil, class: "btn btn-success" %>
 
                                         <% end %>
                                     </div>
@@ -67,8 +66,15 @@
     <% if @chat_not_present %>
         <div class="chatflow_container">
             <!-- domande consigliate da porre alla IA -->
-            Crea una nuova chat o apri una chat esistente per parlare con me e prova a chiedermi una di queste domande 
-            DOMANDA 1 DOMANDA 2 DOMANDA 3
+            <h3 class="testo">Crea una nuova chat o apri una chat esistente per parlare con me e prova a chiedermi una di queste domande</h3> 
+            <div id="table">
+                <div id="row">
+                    <div id="inner"><%= button_to 'Quando è stato costruito il colosseo?', invia_domanda_path('Quando è stato costruito il colosseo?'), class: "button domanda-button"%></div>
+                    <div id="inner"><%= button_to 'Chi ha dipinto la Gioconda?', invia_domanda_path('Chi ha dipinto la Gioconda?'), class: "button domanda-button"%></div>
+                    <div id="inner"><%= button_to 'Consigliami 3 posti dove andare a mangiare a Roma', invia_domanda_path('Consigliami 3 posti dove andare a mangiare a Roma'), class: "button domanda-button"%></div>
+                </div>
+            </div>
+            
         </div>
     <% else %>
     <div class="chatflow_container">

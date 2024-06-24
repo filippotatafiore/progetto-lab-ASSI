@@ -67,7 +67,6 @@ class HomeController < ApplicationController
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato
     @chats = Chat.where('chats.user_id = ? ', session[:user_id])
-   
     # ---------------- variabili da mostrare nella pagina ----------------
   end
 
@@ -205,7 +204,8 @@ class HomeController < ApplicationController
 
   def create_chat 
     @chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
-    redirect_to action: :index
+    params[:chat_id] = Chat.where(user_id: session[:user_id]).order(created_at: :desc).first.id
+    mostra_chat
   end
 
   # ------------------------------------------------------------------ mostrare chat
@@ -214,15 +214,21 @@ class HomeController < ApplicationController
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
     session[:chat_not_present] = false     # mostra la chat nel chatflow_container
-    redirect_to action: @chat
+    if !@domanda #se non è stato cliccato il bottone delle domande suggerite allora fa il redirect, altrimenti il redirect lo fa send_msg
+      redirect_to action: :index
+    end
   end
 
   # ------------------------------------------------------------------ eliminare chat
-  def delete_chat
-   
+  def delete_chat   
     @chat = Chat.find(params[:id])
+    chat_id = @chat.id
+    chat_nome = @chat.nome
     @chat.destroy
-    session[:chat_not_present] = true
+    if session[:chat_id] == chat_id || session[:chat_name] == chat_nome #verifica se hai cancellato la chat che stavi visualizzando
+      session[:chat_name] = "Chat cancellata!"
+      session[:chat_not_present] = true
+    end
     redirect_to action: :index
     
   end
@@ -236,6 +242,14 @@ class HomeController < ApplicationController
     redirect_to action: :index
   end
 
+  def invia_domanda
+    @chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
+    params[:chat_id] = Chat.where(user_id: session[:user_id]).order(created_at: :desc).first.id
+    params[:user_input] = params[:domanda]
+    @domanda = true #var booleana per evitare due redirect (vedi mostra_chat)
+    mostra_chat
+    send_msg
+  end
   
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel

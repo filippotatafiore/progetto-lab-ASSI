@@ -250,6 +250,35 @@
     justify-content: center;
 }
 
+/* css per il box delle domande */
+#table
+{
+    display: table;
+    width:100%;
+    text-align: center;
+}
+
+#row{
+    display: table-row;
+}
+
+.testo{
+    color:white;
+    padding: 1vh;
+    text-align:center
+}
+
+.domanda-button
+{
+    display: table-cell;
+    color:white;
+    padding: 2vh;
+    font-size: 20px; 
+    width: 70%;
+    margin-top: 4vh;
+}
+/* css per il box delle domande */ 
+
 .button.dropdown-toggle::after {
     display: none;      /*elimina la freccetta del dropdown*/
 }
