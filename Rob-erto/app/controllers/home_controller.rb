@@ -203,20 +203,17 @@ class HomeController < ApplicationController
   end
 
   def create_chat 
-    @chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
-    params[:chat_id] = Chat.where(user_id: session[:user_id]).order(created_at: :desc).first.id
-    mostra_chat
+    chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
+    chat_id = chat.id
+    redirect_to action: :mostra_chat, chat_id: chat_id
   end
 
   # ------------------------------------------------------------------ mostrare chat
   def mostra_chat
-    @message = Message.where('chat_id = ?', params[:chat_id])
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
     session[:chat_not_present] = false     # mostra la chat nel chatflow_container
-    if !@domanda #se non è stato cliccato il bottone delle domande suggerite allora fa il redirect, altrimenti il redirect lo fa send_msg
-      redirect_to action: :index
-    end
+    redirect_to action: :index
   end
 
   # ------------------------------------------------------------------ eliminare chat
@@ -233,6 +230,7 @@ class HomeController < ApplicationController
     
   end
 
+  # ------------------------------------------------------------------ rinominare chat
   def cambia_nome_chat
     @chat = Chat.where('id = ?', params[:chat_id])
     @chat.update(nome: params[:nome_chat])
@@ -242,14 +240,19 @@ class HomeController < ApplicationController
     redirect_to action: :index
   end
 
+  # ------------------------------------------------------------------ inviare domanda suggerita
   def invia_domanda
-    @chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
-    params[:chat_id] = Chat.where(user_id: session[:user_id]).order(created_at: :desc).first.id
+    # crea la chat
+    chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
+    # mostra la chat
+    session[:chat_name] = chat.nome
+    session[:chat_id] = chat.id
+    session[:chat_not_present] = false     # mostra la chat nel chatflow_container
+    # invia la domanda
     params[:user_input] = params[:domanda]
-    @domanda = true #var booleana per evitare due redirect (vedi mostra_chat)
-    mostra_chat
     send_msg
   end
+  
   
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel
