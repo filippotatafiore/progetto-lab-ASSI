@@ -222,7 +222,7 @@ class HomeController < ApplicationController
     chat_id = @chat.id
     chat_nome = @chat.nome
     @chat.destroy
-    if session[:chat_id] == chat_id || session[:chat_name] == chat_nome #verifica se hai cancellato la chat che stavi visualizzando
+    if session[:chat_id] == chat_id || session[:chat_name] == chat_nome     #verifica se hai cancellato la chat che stavi visualizzando
       session[:chat_name] = "Chat cancellata!"
       session[:chat_not_present] = true
     end
@@ -234,7 +234,7 @@ class HomeController < ApplicationController
   def cambia_nome_chat
     @chat = Chat.where('id = ?', params[:chat_id])
     @chat.update(nome: params[:nome_chat])
-    if session[:chat_id] == params[:chat_id]
+    if session[:chat_id].to_s == params[:chat_id]
       session[:chat_name] = params[:nome_chat]
     end
     redirect_to action: :index
