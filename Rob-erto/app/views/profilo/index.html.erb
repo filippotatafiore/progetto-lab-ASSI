@@ -1,82 +1,86 @@
-<div class="container z-index-1">
-    <div class="row justify-content-center custom-height">
-        <div class="col-12 col-md-8 col-lg-6">
-        <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
-            <p>Benvenuto nella tua sezione Profilo!</p>
-            <% unless user_signed_in? %>
-            <p>Non hai ancora effettuato il login oppure sei un nuovo utente?</p>
-            <%- if devise_mapping.omniauthable? %>
-                <%- resource_class.omniauth_providers.each do |provider| %>
-                <%= button_to "Entra con #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-primary mb-2" %>
+<head>
+    <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="container z-index-1">
+        <div class="row justify-content-center custom-height">
+            <div class="col-12 col-md-8 col-lg-6">
+            <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
+                <p>Benvenuto nella tua sezione Profilo!</p>
+                <% unless user_signed_in? %>
+                <p>Non hai ancora effettuato il login oppure sei un nuovo utente?</p>
+                <%- if devise_mapping.omniauthable? %>
+                    <%- resource_class.omniauth_providers.each do |provider| %>
+                    <%= button_to "Entra con #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-primary mb-2" %>
+                    <% end %>
                 <% end %>
-            <% end %>
-            <% else %>
-            <meta name="csrf-token" content="<%= form_authenticity_token %>">
-            <div class="popup" id="img-window">
-                <h2>Seleziona il tuo avatar!</h2>
-                <div id="immaginiProfilo">
+                <% else %>
+                <meta name="csrf-token" content="<%= form_authenticity_token %>">
+                <div class="popup" id="img-window">
+                    <h2>Seleziona il tuo avatar!</h2>
+                    <div id="immaginiProfilo">
+                    </div>
+                    <button class="button_1 btn btn-danger" onclick="closePopup()">INDIETRO</button>
                 </div>
-                <button class="button_1 btn btn-danger" onclick="closePopup()">INDIETRO</button>
-            </div>
-            <div class="user-informations">
-                <img src="<%= asset_path("account/img#{current_user.profile_image}.png") %>" alt="avatar" id="avatar" class="avatar">
-                <p class="username" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
-            </div>
-            <div class="border-top">
-                <p>Informazioni Generali:</p>
-                <p>Email: <%= current_user.email %></p>
-                <p>Username: <%= current_user.name %></p>
-                <p>Utente PRO: Da gestire</p>
-            </div> 
-            <div class="border-top">
-                <p>Personalizza il tuo profilo!</p>
-                <button class="btn btn-primary" onclick="openPopup()">Cambia avatar!</button>
-            </div>
-            <br>
-            <p>Non ti piace il nickname?</p>
-            <div class="d-flex justify-content-center align-items-center">
-                <%= form_with(model: current_user, url: update_nickname_path, method: :patch, local: true, html: { class: 'row g-3' }) do |form| %>
-                <div class="col-auto">
-                    <%= form.label :nickname, class: 'visually-hidden' %>
-                    <%= form.text_field :nickname, class: 'form-control', placeholder: 'Nickname' %>
+                <div class="user-informations">
+                    <img src="<%= asset_path("account/img#{current_user.profile_image}.png") %>" alt="avatar" id="avatar" class="avatar">
+                    <p class="username" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
                 </div>
-                <div class="col-auto">
-                    <%= form.submit "Cambia nickname", class: "btn btn-primary mb-3" %>
+                <div class="border-top">
+                    <p>Informazioni Generali:</p>
+                    <p>Email: <%= current_user.email %></p>
+                    <p>Username: <%= current_user.name %></p>
+                    <p>Utente PRO: Da gestire</p>
+                </div> 
+                <div class="border-top">
+                    <p>Personalizza il tuo profilo!</p>
+                    <button class="btn btn-primary" onclick="openPopup()">Cambia avatar!</button>
+                </div>
+                <br>
+                <p>Non ti piace il nickname?</p>
+                <div class="d-flex justify-content-center align-items-center">
+                    <%= form_with(model: current_user, url: update_nickname_path, method: :patch, local: true, html: { class: 'row g-3' }) do |form| %>
+                    <div class="col-auto">
+                        <%= form.label :nickname, class: 'visually-hidden' %>
+                        <%= form.text_field :nickname, class: 'form-control', placeholder: 'Nickname' %>
+                    </div>
+                    <div class="col-auto">
+                        <%= form.submit "Cambia nickname", class: "btn btn-primary mb-3" %>
+                    </div>
+                    <% end %>
+                </div>
+                <div class="border-top">
+                    <p>Vuoi cambiare profilo?</p>
+                    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+                </div>
+                
+
+                <div class="border-top mt-2 text-center">
+                    <p>Non sei soddisfatto? Puoi cancellare l'account se vuoi ma poi non sarai mai più uno di noi.</p>
+                    <%= button_to 'Elimina account', user_registration_path, method: :delete, class: "btn btn-danger",data: { confirm: 'Sei sicuro di voler eliminare il tuo account?' } %>
+                </div>
+
+                <div class="border-top mt-2 text-center">
+                    <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
+                    <ul class="d-inline-block text-left">
+                        <li>funzionalità uno</li>
+                        <li>funzionalità due</li>
+                    </ul>
+
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="ELCG948BR5NRQ" />
+                        <input type="hidden" name="currency_code" value="EUR" />
+                        <input type="image" src="https://www.paypalobjects.com/it_IT/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal, il metodo semplice e sicuro per pagare online" alt="Acquista ora" />
+                    </form>
                 </div>
                 <% end %>
             </div>
-            <div class="border-top">
-                <p>Vuoi cambiare profilo?</p>
-                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
             </div>
-            
-
-            <div class="border-top mt-2 text-center">
-                <p>Non sei soddisfatto? Puoi cancellare l'account se vuoi ma poi non sarai mai più uno di noi.</p>
-                <%= button_to 'Elimina account', user_registration_path, method: :delete, class: "btn btn-danger",data: { confirm: 'Sei sicuro di voler eliminare il tuo account?' } %>
-            </div>
-
-            <div class="border-top mt-2 text-center">
-                <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
-                <ul class="d-inline-block text-left">
-                    <li>funzionalità uno</li>
-                    <li>funzionalità due</li>
-                </ul>
-
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="ELCG948BR5NRQ" />
-                    <input type="hidden" name="currency_code" value="EUR" />
-                    <input type="image" src="https://www.paypalobjects.com/it_IT/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal, il metodo semplice e sicuro per pagare online" alt="Acquista ora" />
-                </form>
-            </div>
-            <% end %>
-        </div>
         </div>
     </div>
-</div>
-<script>
-    var assetPaths = <%= (1..38).map { |i| asset_path("account/img#{i}.png") }.to_json.html_safe %>;
-</script>
-<%= javascript_include_tag 'account' %>
-
+    <script>
+        var assetPaths = <%= (1..38).map { |i| asset_path("account/img#{i}.png") }.to_json.html_safe %>;
+    </script>
+    <%= javascript_include_tag 'account' %>
+</body>

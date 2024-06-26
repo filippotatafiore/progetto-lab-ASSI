@@ -1,0 +1,12 @@
+<div>
+    <h1>Pagamento effetuato con SUCCESSO!</h1>
+    <p>Verrai reindirizzato alla schermata home a breve...</p>
+    <p>Ancora bloccato in questa schemata? clicca qui</p>
+    <p><%= link_to 'Torna alla schermata Home', root_path %></p>
+</div>
+<script>
+  setTimeout(function() {
+    window.location.href = "<%= root_path %>";
+  }, 3000); // 3000 millisecondi equivalgono a 3 secondi
+</script>
+

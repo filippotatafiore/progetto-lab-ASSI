@@ -1,13 +1,13 @@
 class HomeController < ApplicationController
 
   def index
-    
+
     if session[:first_visit].nil? || session[:first_visit] == true   # primo accesso alla pagina
       reset_session
       session[:first_visit] = false
 
       # Elimina tutti i base_user che non hanno aggiornato alcuna chat da più di 3 ore
-      #User.joins(:chats).where('chats.updated_at < ? AND users.name = ?', 3.hours.ago, 'base_user').destroy_all
+      #User.joins(:chat).where(name: 'base_user').where('chats.updated_at < ?', 3.hours.ago).destroy_all
       User.where('users.name = ?', 'base_user').destroy_all
       # vengono eliminate di conseguenza tutte le chat associate agli utenti eliminati e tutti i messaggi associati alle chat eliminate
 
@@ -40,7 +40,7 @@ class HomeController < ApplicationController
 
       if session[:primo_accesso_login] == 0   # primo accesso da utente loggato
         session[:primo_accesso_login] = 1
-        session[:chat_not_present] = true 
+        session[:chat_not_present] = true
 
       end
 
@@ -50,13 +50,13 @@ class HomeController < ApplicationController
       session[:primo_accesso_login] = 0
       @list_visibility = false
       session[:chat_not_present] = false
-  
+
     end
 
-    
+
     # ---------------- variabili da mostrare nella pagina ----------------
     # mostra la chat nella chat-area
-    @chat_not_present = session[:chat_not_present] 
+    @chat_not_present = session[:chat_not_present]
     # messaggi da mostrare nella pagina
     @messages = Message.where('chat_id = ?', session[:chat_id]).order(created_at: :asc)
     # nome della chat corrente
@@ -72,7 +72,7 @@ class HomeController < ApplicationController
 
 
 
-  
+
   # ------------------------------------------------------------------ invio e ricezione messaggi
   def send_msg
 
@@ -100,7 +100,7 @@ class HomeController < ApplicationController
 
 
         messaggio = params[:user_input]     # messaggio da inviare
-        
+
         # gestione traduzioni
         if params[:translate].present? and params[:translate] != "false"
           messaggio = "Translate the following text in " + params[:translate] + ": " + messaggio
@@ -202,7 +202,7 @@ class HomeController < ApplicationController
     @chat = Chat.new
   end
 
-  def create_chat 
+  def create_chat
     chat = Chat.create(user_id: session[:user_id], nome: "Nuova chat")
     chat_id = chat.id
     redirect_to action: :mostra_chat, chat_id: chat_id
@@ -217,7 +217,7 @@ class HomeController < ApplicationController
   end
 
   # ------------------------------------------------------------------ eliminare chat
-  def delete_chat   
+  def delete_chat
     @chat = Chat.find(params[:id])
     chat_id = @chat.id
     chat_nome = @chat.nome
@@ -227,7 +227,7 @@ class HomeController < ApplicationController
       session[:chat_not_present] = true
     end
     redirect_to action: :index
-    
+
   end
 
   # ------------------------------------------------------------------ rinominare chat
@@ -252,8 +252,8 @@ class HomeController < ApplicationController
     params[:user_input] = params[:domanda]
     send_msg
   end
-  
-  
+
+
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel
 
@@ -275,7 +275,7 @@ class HomeController < ApplicationController
 
     # reindirizzamento (aggiorna la pagina)
     redirect_to action: :index
- 
+
   end
 
 

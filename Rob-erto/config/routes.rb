@@ -1,6 +1,8 @@
 
 Rails.application.routes.draw do
 
+  get 'pro_user_failure/index'
+  get 'pro_user_ok/index'
   get 'amici/index'
   get 'profilo/index'
   get 'help/index'

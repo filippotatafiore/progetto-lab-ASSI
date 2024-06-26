@@ -1,0 +1,2 @@
+module ProUserFailureHelper
+end
