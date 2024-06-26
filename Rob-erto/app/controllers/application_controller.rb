@@ -35,4 +35,20 @@ class ApplicationController < ActionController::Base
     def resource_name
         devise_mapping.name
     end
+
+    def after_sign_in_path_for(resource)
+        # Imposta qui la tua variabile di sessione
+        session[:user_id] = current_user.id
+        super
+    end
+
+
+    before_action :configure_permitted_parameters, if: :devise_controller?
+
+    protected
+
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    end
 end
