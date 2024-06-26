@@ -11,7 +11,7 @@
                 <p>Non hai ancora effettuato il login oppure sei un nuovo utente?</p>
                 <%= button_to "Login", new_user_session_path, method: :get, class: "btn btn-primary mb-2" %>
                 <%= button_to "Registrati", new_user_registration_path, method: :get, class: "btn btn-primary mb-2" %>
-                
+
                 <p>Oppure fai il login con Github!</p>
                 <%- if devise_mapping.omniauthable? %>
                     <%- resource_class.omniauth_providers.each do |provider| %>
@@ -34,7 +34,7 @@
                     <p>Informazioni Generali:</p>
                     <p>Email: <%= current_user.email %></p>
                     <p>Username: <%= current_user.name %></p>
-                    <p>Utente PRO: Da gestire</p>
+                    <p>Utente PRO: <%= current_user.pro %></p>
                 </div> 
                 <div class="border-top">
                     <p>Personalizza il tuo profilo!</p>

@@ -33,7 +33,7 @@ class HomeController < ApplicationController
     end
 
 
-    session[:user_name] = User.where('users.id = ?', session[:user_id]).first.name
+    session[:user_name] = User.where('users.id = ?', session[:user_id]).first.nickname
 
 
     if session[:user_name] != 'base_user'  # utente loggato

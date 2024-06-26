@@ -9,7 +9,8 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :friends, through: :friendships
 
-  before_create :set_default_profile_image
+  before_create :set_default_profile_image, :set_default_pro
+
 
   before_save :set_default_nickname
 
@@ -33,4 +34,7 @@ class User < ApplicationRecord
     self.nickname ||= self.name
   end
 
+  def set_default_pro
+    self.pro ||= false
+  end
 end
