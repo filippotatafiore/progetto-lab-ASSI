@@ -249,7 +249,44 @@
     align-items: center;
     justify-content: center;
 }
+/*css per i link della chat list */
+.chat-link{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+.chat-link:hover{
+    color: greenyellow;
+}
 
+.wrapper{
+    border: 2px solid greenyellow;
+    text-align: center; 
+    border-radius: 10px;
+    background-color:  rgb(43, 43, 43); 
+    padding: 7px;
+    width: 90%;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+}
+.list_elem_container{
+    width: 90%;
+    height: 5vh;
+    display: inline-block;
+}
+.star-img{
+    margin-left: 1.5vw;
+    margin-top: 1vh;
+    position:absolute;
+    
+}
+/*css per i link della chat list */
+
+.dropdown-img{
+    margin-left: 11vw;
+    margin-top: -7vh;
+}
 /* css per il box delle domande */
 #table
 {
@@ -276,6 +313,7 @@
     font-size: 20px; 
     width: 70%;
     margin-top: 4vh;
+    border-color: greenyellow
 }
 /* css per il box delle domande */ 
 
@@ -288,10 +326,11 @@
     height: 100%;
 }
 
+
 .contenitore{
     margin-top: 10px;
     float: left;
-    width: 10vw;
+    width: 15vw;
     min-width: 10px;
     height: 90vh;
     margin-left: 20px;
@@ -313,31 +352,37 @@
 .list{
     background-color: gray;
     height: 90%;
-    word-wrap: break-word;
-    overflow-y :auto;
+    overflow-y: auto;
+    white-space: nowrap
 }
-
 .crea{
     background-color: var(--buttons-background-color);
     width: 75%;
     height: 7vh;
-    color: white;
+    color: greenyellow;
     backdrop-filter: blur(10%);
-    border: 2px solid rgb(255, 255, 255);
+    border: 2px solid greenyellow;
     border-radius: var(--standard-border-radius);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.partial_test{
+.list_elems{
     padding: 10px;
     color: white;
     z-index: 10;
 }
 
 .crea:active{
-    color:red;
+    color: white;
+}
+.crea:hover{
+    color:white;
 }
 
-.test{
-    z-index: 999;
-}
+.ul{
+    list-style-type: none;
+    padding: 0;
+  }
 

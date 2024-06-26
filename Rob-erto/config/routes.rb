@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'create_chat', to: 'home#create_chat', as: 'create_chat'#per creare chat eventualmente quando si fa la logica
   get 'mostra_chat/:chat_id', to: 'home#mostra_chat', as: 'mostra_chat'
   patch 'cambia_nome_chat/:chat_id', to: 'home#cambia_nome_chat', as: 'cambia_nome_chat'
+  post 'aggiungi_ai_preferiti/:chat_id', to: 'home#aggiungi_ai_preferiti', as: 'aggiungi_ai_preferiti'
+  post 'rimuovi_dai_preferiti/:chat_id', to: 'home#rimuovi_dai_preferiti', as: 'rimuovi_dai_preferiti'
   post '/send_msg', to: 'home#send_msg'     # per invocare send_msg di HomeController dalla view
   post '/invia_domanda/:domanda', to:'home#invia_domanda', as: 'invia_domanda'
   get 'change_theme', to: 'application#change_theme'  # per cambiare il tema

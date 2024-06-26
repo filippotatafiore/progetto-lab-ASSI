@@ -66,7 +66,7 @@ class HomeController < ApplicationController
     # modello di IA
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato
-    @chats = Chat.where('chats.user_id = ? ', session[:user_id])
+    @chats = Chat.where('chats.user_id = ? ', session[:user_id]).order(preferita: :desc)
     # ---------------- variabili da mostrare nella pagina ----------------
   end
 
@@ -253,7 +253,17 @@ class HomeController < ApplicationController
     send_msg
   end
 
+  def aggiungi_ai_preferiti
+    @chat = Chat.where('id = ?', params[:chat_id])
+    @chat.update(preferita: 1)
+    redirect_to action: :index
+  end
 
+  def rimuovi_dai_preferiti
+    @chat = Chat.where('id = ?', params[:chat_id])
+    @chat.update(preferita: 0)
+    redirect_to action: :index
+  end
   # ------------------------------------------------------------------ cambiare modello di ia
   def set_aimodel
 

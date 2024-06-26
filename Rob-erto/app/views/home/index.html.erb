@@ -11,18 +11,28 @@
         <%= button_to 'Crea chat', create_chat_path(), class: 'crea', id: 'crea_chat_button' %> 
     </div>
     <div class="list"> 
-            <div class="partial_test">
+            <div class="list_elems">
             <% if !@chats.empty? %> 
                 <% @chats.each do |chat| %>
-                <ul>
-                    <li><%= link_to chat.id, mostra_chat_path(chat_id: chat.id), id: 'mostra_chat_link' %> <%= chat.nome %>
-                    <button type="button" class="reload-button" data-bs-toggle="dropdown">
-                        <%= image_tag('chatmenu.png', alt: "", class: "button-img") %>
+                <ul class="ul">
+                    <li><div class="list_elem_container"><p class="wrapper"><%= link_to chat.nome, mostra_chat_path(chat_id: chat.id), id: 'mostra_chat_link', class:"chat-link", title: chat.nome %></p>
+                    <% if chat.preferita==1%>
+                        <%= image_tag('star.png',  class: "star-img")%>         
+                    <%end%>
+
+                    <button type="button" class="reload-button dropwdown-toggle" data-bs-toggle="dropdown">
+                        <%= image_tag('chatmenu.png', alt: "", class: "button-img dropdown-img") %>
                     </button>
                     <ul class="dropdown-menu">
+                        <li><input type="submit" value="Cambia nome chat" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-<%= chat.id %>"/></li>
+                        <% if chat.preferita==0 %> 
+                            <li><%= button_to "Aggiungi chat ai preferiti", aggiungi_ai_preferiti_path(chat_id: chat.id), method: :post, class:"dropdown-item" %></li>
+                        <%else%> 
+                                <li><%= button_to "Rimuovi chat dai preferiti", rimuovi_dai_preferiti_path(chat_id: chat.id), method: :post, class:"dropdown-item" %></li>
+                        <%end%>
                         <li><%= button_to "Cancella chat", delete_chat_path(chat.id), method: :delete, class: "dropdown-item" %></li>
-                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-<%= chat.id %>">Cambia nome chat</button>
                     </ul>
+                    </div>
                     </li>
                 </ul>
                  <!-- POPUP -->
@@ -49,7 +59,7 @@
                     <!-- -->
                 <% end %>
             <%else%>
-               Non hai nessuna chat creata!
+               <div class="d inline text-wrap text-center">Non hai nessuna chat creata!</div>
             <%end%>
             </div>
     </div>             
