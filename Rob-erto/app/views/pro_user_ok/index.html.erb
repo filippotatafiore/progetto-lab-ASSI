@@ -9,4 +9,6 @@
     window.location.href = "<%= root_path %>";
   }, 3000); // 3000 millisecondi equivalgono a 3 secondi
 </script>
-
+<h1>USER ID:<%= session[:user_id] %></h1>
+<h1>NOME EMAIL: <%= session[:user_name] %>
+<h1> CURRENT USER <%= current_user %> </h1>
