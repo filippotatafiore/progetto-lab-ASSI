@@ -77,9 +77,11 @@
     grid-area: 2 / 2 / span 3;
   }
 
-  .linea{
-    color: black;
-    align-items: center;
+
+  .logo_container{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    width: 90%;
+    align-items: center;
+    height: 100%;
   }

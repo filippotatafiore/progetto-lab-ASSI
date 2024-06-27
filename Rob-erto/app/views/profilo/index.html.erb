@@ -28,13 +28,16 @@
                 </div>
                 <div class="user-informations">
                     <img src="<%= asset_path("account/img#{current_user.profile_image}.png") %>" alt="avatar" id="avatar" class="avatar">
-                    <p class="username" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
+                    <% if current_user.pro %>
+                        <p class="username" id="procheck" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
+                    <%else%>
+                        <p class="username" id="noprocheck" data-username="<%= current_user.nickname %>"><%= current_user.nickname %></p>
+                    <%end%>
                 </div>
                 <div class="border-top">
                     <p>Informazioni Generali:</p>
                     <p>Email: <%= current_user.email %></p>
                     <p>Username: <%= current_user.name %></p>
-                    <p>Utente PRO: <%= current_user.pro %></p>
                 </div> 
                 <div class="border-top">
                     <p>Personalizza il tuo profilo!</p>

@@ -331,7 +331,7 @@ class HomeController < ApplicationController
 
     if share&.destroy
       # Se l'eliminazione va a buon fine, reindirizza o mostra un messaggio di successo
-      if session[:chat_id] == chat_id || session[:chat_name] == chat_nome     #verifica se hai cancellato la chat che stavi visualizzando
+      if session[:chat_id] == chat_id     #verifica se hai cancellato la chat che stavi visualizzando
         session[:chat_name] = "Chat cancellata!"
         session[:chat_not_present] = true
       end
