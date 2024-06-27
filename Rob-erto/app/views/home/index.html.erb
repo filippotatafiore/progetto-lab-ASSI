@@ -104,7 +104,7 @@
 <% if @list_visibility %>
 <div class="contenitore_shared">
     <div class="title">
-        <p class="title_shared">CHAT CONDIVISE</p>
+        <p class="title_shared">Chat condivise</p>
     </div>
     <div class="list"> 
         <div class="list_elems">
@@ -117,7 +117,7 @@
                                 <%= link_to chat.nome, mostra_chat_path(chat_id: chat.id, condivisa: true), id: 'mostra_chat_link', class:"chat-link", title: chat.nome %>
                             </p>
 
-                            <button type="button" class="reload-button dropdown-toggle" data-bs-toggle="dropdown">
+                            <button type="button" class="reload-button dropwdown-toggle" data-bs-toggle="dropdown">
                                 <%= image_tag('chatmenu.png', alt: "", class: "button-img dropdown-img") %>
                             </button>
                             <ul class="dropdown-menu">

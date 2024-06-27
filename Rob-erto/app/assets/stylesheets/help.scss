@@ -17,9 +17,7 @@
   
   .grid-container > div {
     background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
     padding: 20px 0;
-    font-size: 30px;
   }
   .stileinfo{
     word-wrap: break-word;
@@ -28,31 +26,60 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
+    color:black;
+    min-height: 19.4vh;
+    max-height: 19.4vh;
+
   
   }
+  .stileinfoattiva{
+    word-wrap: break-word;
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--shared-title-color);
+    text-decoration: underline;
+    min-height: 19.4vh;
+    max-height: 19.4vh;
+  }
   .stileinfo:hover{
-    color:greenyellow;
-
+    color: var(--shared-title-color);
     cursor: pointer;
   }
 
   #stileheader{
     background-color: var(--buttons-background-color);
     color:greenyellow;
-    font-size: 3em;
-    max-height: 15vh;
+    font-size: 7vh;
+    min-height: 14vh;
+    max-height: 14vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: normal;
+    overflow: hidden;
   }
   #content{
     overflow-y: scroll;
     background-color: gray;
+    font-size: 30px;
+    min-height: 70vh;
+    max-height: 70vh;
   }
   .header{
     grid-area: 1 / 1 / span 1 / span 2;
   }
   
   .main-content {
-    grid-area: 2 / 2 / span 4;
+    grid-area: 2 / 2 / span 3;
+  }
+
+  .linea{
+    color: black;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
   }

@@ -47,7 +47,8 @@ class HomeController < ApplicationController
       end
 
       @list_visibility = true    # visibilità della lista chat
-      @friendships = current_user.friendships.where(status: 1)
+      @friendships = Friendship.where(user_id: session[:user_id], status: 1)
+      # @friendships = current_user.friendships.where(status: 1)
       @shared_chats = Chat.joins(:shares).where(shares: { destinatario_id: session[:user_id] })
 
     else

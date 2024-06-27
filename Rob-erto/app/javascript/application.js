@@ -1,6 +1,4 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-//= require flash
-//= require jquery3
 
 // settings
 var settings_button = document.getElementById('settings-img-container');
@@ -173,6 +171,20 @@ function aggiornaFontColor(){
     document.getElementsByClassName('chatflow_container')[0].style.color = selected_font_color;
     sessionStorage.setItem('font-color', selected_font_color); // Salva il font color nel Session Storage
 }
+
+//TOOLS
+function preciseSetTimeout(callback, delay) {
+    let start = performance.now();
+  
+    function tick() {
+      let now = performance.now();
+      let difference = now - start;
+  
+      difference >= delay ? callback() : requestAnimationFrame(tick);
+    }
+    tick();
+  }
+  
 
 aggiornaSfondoChat();
 aggiornaChatboxColor()

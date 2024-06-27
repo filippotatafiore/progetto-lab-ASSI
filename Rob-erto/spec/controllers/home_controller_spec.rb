@@ -34,7 +34,7 @@ RSpec.describe "Chat", type: :feature do
   context "when the user is logged in" do
     before do
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
-    
+
       visit user_github_omniauth_authorize_path
       page.set_rack_session(user_id: user.id)
       page.set_rack_session(first_visit: false)
@@ -62,7 +62,7 @@ RSpec.describe "Chat", type: :feature do
       visit root_path
       fill_in "user_input", with: "Hello!"
       click_button "send_button"
-  
+
       # Aspetta che i chatbox appaiano sulla pagina (dopo esecuzione di send_msg) e verifica il contenuto
       expect(page).to have_xpath("(//li[contains(@class, 'chatbox outgoing')])[last()]/p", text: "Hello!", visible: true)
       expect(page).to have_xpath("(//li[contains(@class, 'chatbox incoming')])[last()]/p", text: /./, visible: true)
@@ -95,7 +95,7 @@ RSpec.describe "CreateChat", type: :feature do
   context "when the user is logged in" do
     before do
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
-    
+
       visit user_github_omniauth_authorize_path
       page.set_rack_session(user_id: user.id)
       page.set_rack_session(first_visit: false)
@@ -105,8 +105,9 @@ RSpec.describe "CreateChat", type: :feature do
     it "creates a new chat and shows it" do
       expect(page).to have_selector("#crea_chat_button")
       click_button "crea_chat_button"
-  
-      within('.partial_test') do
+
+      list_elems = find('.list_elems', match: :first)
+      within(list_elems) do
         # Trova l'ultimo elemento <li> nella lista
         last_chat_item = all('li').last
         # Verifica che l'ultimo elemento <li> contenga la scritta "Nuova chat"
@@ -127,7 +128,7 @@ RSpec.describe "CreateChat", type: :feature do
       expect(page).not_to have_selector("#crea_chat_button")
     end
   end
-  
+
   after do
     OmniAuth.config.test_mode = false
   end
