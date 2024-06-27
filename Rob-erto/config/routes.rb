@@ -48,4 +48,6 @@ Rails.application.routes.draw do
     end
   end
 
+  post '/condividi_chat', to: 'home#condividi_chat' #per condividere la chat
+
 end

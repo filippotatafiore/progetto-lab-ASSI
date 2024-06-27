@@ -48,6 +48,7 @@ class HomeController < ApplicationController
 
       @list_visibility = true    # visibilità della lista chat
       @friendships = current_user.friendships.where(status: 1)
+      @shared_chats = Chat.joins(:shares).where(shares: { destinatario_id: session[:user_id] })
 
     else
       session[:primo_accesso_login] = 0
@@ -291,6 +292,24 @@ class HomeController < ApplicationController
     # reindirizzamento (aggiorna la pagina)
     redirect_to action: :index
 
+  end
+
+  # ------------------------------------------------------------------ condividi chat
+  def condividi_chat
+    mittente_id = params[:mittente]
+    destinatario_id = params[:destinatario]
+    chat_id = params[:chat_id]
+
+    # Creazione del nuovo elemento Share
+    share = Share.new(user_id: mittente_id, destinatario_id: destinatario_id, chat_id: chat_id)
+
+    if share.save
+      # Se il salvataggio va a buon fine, puoi reindirizzare l'utente o renderizzare qualcosa
+      redirect_to action: :index, notice: 'Chat condivisa con successo.'
+    else
+      # Gestisci il caso in cui il salvataggio fallisce (es. mostrando errori)
+      render :new, status: :unprocessable_entity
+    end
   end
 
 

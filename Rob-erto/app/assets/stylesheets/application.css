@@ -72,7 +72,7 @@ header{
 
 #NavBar{
     background-color: var(--navbar-color);
-    height: 50px;
+    height: 6vh;
     width: 100%;
     z-index: 10;
 }

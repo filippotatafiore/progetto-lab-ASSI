@@ -14,8 +14,6 @@ var reload_input = document.getElementById('reload_input');
 
 var form = document.getElementById('user_input_form');
 
-
-
 send_button.addEventListener('click', function (event) {
     event.preventDefault();
     translate_input.value = 'false';
@@ -62,16 +60,41 @@ reload_button.addEventListener('click', function (event) {
     console.log("invocato reload sull'ultimo messaggio");
 });
 
+//popup message
+function popUpMessage(message){
+    try{
+        let notification = document.createElement('div');
+        notification.classList.add("notification");
+        let notification_body = document.createElement('div');
+        notification_body.classList.add("notification-body");
+        notification_body.textContent = message;
+        let notification_progress = document.createElement("div");
+        notification_progress.classList.add("notification-progress");
+        notification.appendChild(notification_body);
+        notification.appendChild(notification_progress);
+        document.body.appendChild(notification);
+
+        preciseSetTimeout(function() {
+            document.body.removeChild(notification);
+        }, 10000);
+    
+    } catch (error){
+        console.error('Error during pop up message ', error);
+    }
+}
+
+
+let paragraphs = document.querySelectorAll('.chatbox p');
+paragraphs.forEach(paragraph => {
+    paragraph.addEventListener('dblclick', function() {
+        navigator.clipboard.writeText(paragraph.textContent)
+            .then(() => popUpMessage('Testo copiato!'))
+            .catch(err => console.error('Errore nella copia del testo:', err));
+    });
+});
+
 
 });
 
-newMessage.addEventListener('dblclick', copyToClipboard);
-export async function copyToClipboard(event){
-    let textToCopy = event.target.textContent;
-    try{
-        await navigator.clipboard.writeText(textToCopy);
-        popUpMessage('Copied to clipboard');
-    }catch  (error){
-        console.error('Errore durante la copia nella clipboard:', error);
-    }
-}
+
+
