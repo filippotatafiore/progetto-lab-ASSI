@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resource :chat
   post 'create_chat', to: 'home#create_chat', as: 'create_chat'#per creare chat eventualmente quando si fa la logica
-  get 'mostra_chat/:chat_id', to: 'home#mostra_chat', as: 'mostra_chat'
+  get 'mostra_chat', to: 'home#mostra_chat', as: 'mostra_chat'
   patch 'cambia_nome_chat/:chat_id', to: 'home#cambia_nome_chat', as: 'cambia_nome_chat'
   post 'aggiungi_ai_preferiti/:chat_id', to: 'home#aggiungi_ai_preferiti', as: 'aggiungi_ai_preferiti'
   post 'rimuovi_dai_preferiti/:chat_id', to: 'home#rimuovi_dai_preferiti', as: 'rimuovi_dai_preferiti'
@@ -49,5 +49,7 @@ Rails.application.routes.draw do
   end
 
   post '/condividi_chat', to: 'home#condividi_chat' #per condividere la chat
+  delete '/rimuovi_chat_condivisa', to: 'home#rimuovi_chat_condivisa'   # per rimuovere la chat condivisa
+  resources :shares, only: [:create, :destroy]
 
 end

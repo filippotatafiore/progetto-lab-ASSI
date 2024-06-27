@@ -23,8 +23,6 @@ if (!chatbox_color_1 && !chatbox_color_2 && !chatbox_color_3) {
     selected_incoming_color = 'darkslategrey';
     selected_outgoing_color = 'goldenrod';
 }
-console.log("Colore selezionato incoming: ", selected_incoming_color);
-console.log("Colore selezionato outgoing: ", selected_outgoing_color);
 
 // font
 var font_1 = document.getElementById('font-1');
@@ -36,7 +34,6 @@ var selected_font = sessionStorage.getItem('font') || 'Arial';
 if (!font_1 && !font_2 && !font_3 && !font_4 && !font_5) {
     selected_font = 'Arial';
 }
-console.log("font selezionato: ", selected_font);
 
 //font color
 var font_color_1 = document.getElementById('font-color-1');
@@ -46,7 +43,6 @@ var selected_font_color = sessionStorage.getItem('font-color') || 'white';
 if (!font_color_1 && !font_color_2 && !font_color_3) {
     selected_font_color = 'white';
 }
-console.log("colore font selezionato: ", selected_font_color);
 
 
 
@@ -154,10 +150,6 @@ function aggiornaSfondoChat(){
 }
 
 function aggiornaChatboxColor(){
-    //debug
-    console.log("COLORE INCOMING: ", selected_incoming_color);
-    console.log("COLORE OUTGOING: ", selected_outgoing_color);
-
     var incomingElements = document.querySelectorAll('.incoming p');
     for(var i = 0; i < incomingElements.length; i++) {
         incomingElements[i].style.backgroundColor = selected_incoming_color;
@@ -172,18 +164,12 @@ function aggiornaChatboxColor(){
 }
 
 function aggiornaFont(){
-    //debug
-    console.log("FONT: ", selected_font);
-
     document.getElementsByClassName('chatflow_container')[0].style.fontFamily = selected_font;
     document.getElementsByClassName('user-input-container')[0].style.fontFamily = selected_font;
     sessionStorage.setItem('font', selected_font); // Salva il font nel Session Storage
 }
 
 function aggiornaFontColor(){
-    //debug
-    console.log("COLORE FONT: ", selected_font_color);
-
     document.getElementsByClassName('chatflow_container')[0].style.color = selected_font_color;
     sessionStorage.setItem('font-color', selected_font_color); // Salva il font color nel Session Storage
 }

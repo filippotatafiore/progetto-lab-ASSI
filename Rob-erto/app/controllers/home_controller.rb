@@ -73,6 +73,8 @@ class HomeController < ApplicationController
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato
     @chats = Chat.where('chats.user_id = ? ', session[:user_id]).order(preferita: :desc)
+    # possibilità di scrivere nella chat
+    @not_able_to_write = session[:not_able_to_write]
     # ---------------- variabili da mostrare nella pagina ----------------
   end
 
@@ -219,6 +221,13 @@ class HomeController < ApplicationController
     session[:chat_name] = Chat.where('id = ?', params[:chat_id]).first.nome
     session[:chat_id] = params[:chat_id]
     session[:chat_not_present] = false     # mostra la chat nel chatflow_container
+
+    if params[:condivisa].present? and params[:condivisa] == "true"
+      session[:not_able_to_write] = true
+    else
+      session[:not_able_to_write] = false
+    end
+
     redirect_to action: :index
   end
 
@@ -309,6 +318,26 @@ class HomeController < ApplicationController
     else
       # Gestisci il caso in cui il salvataggio fallisce (es. mostrando errori)
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def rimuovi_chat_condivisa
+    #destinatario_id = params[:destinatario]
+    chat_id = params[:chat_id]
+
+    # Trova l'elemento Share corrispondente
+    share = Share.find_by(destinatario_id: session[:user_id], chat_id: chat_id)
+
+    if share&.destroy
+      # Se l'eliminazione va a buon fine, reindirizza o mostra un messaggio di successo
+      if session[:chat_id] == chat_id || session[:chat_name] == chat_nome     #verifica se hai cancellato la chat che stavi visualizzando
+        session[:chat_name] = "Chat cancellata!"
+        session[:chat_not_present] = true
+      end
+      redirect_to action: :index, notice: 'Chat condivisa rimossa con successo.'
+    else
+      # Gestisci il caso in cui l'eliminazione fallisce (es. l'elemento non esiste)
+      redirect_to action: :index, alert: 'Impossibile rimuovere la chat condivisa.'
     end
   end
 

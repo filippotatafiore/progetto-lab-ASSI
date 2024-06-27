@@ -21,23 +21,29 @@
     padding: 20px 0;
     font-size: 30px;
   }
-  #stileinfo{
+  .stileinfo{
     word-wrap: break-word;
     font-size: 2em;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   
   }
-  #stileinfo:hover{
+  .stileinfo:hover{
     color:greenyellow;
+
     cursor: pointer;
   }
 
   #stileheader{
-    background-color:  rgb(20, 20, 20);
+    background-color: var(--buttons-background-color);
     color:greenyellow;
     font-size: 3em;
-    justify-content: center;
     max-height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   #content{
     overflow-y: scroll;
