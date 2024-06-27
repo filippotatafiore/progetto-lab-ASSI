@@ -285,7 +285,7 @@
 
 .dropdown-img{
     margin-left: 11vw;
-    margin-top: -7vh;
+    margin-top: -55px;
 }
 /* css per il box delle domande */
 #table
@@ -338,7 +338,6 @@
     border-radius: 20px 20px 20px 20px;
     overflow: hidden;
 }
-
 .title{
     text-align: center;
     height: 10%;
@@ -366,6 +365,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    font-size: 25px;
 }
 
 .list_elems{
@@ -385,4 +385,27 @@
     list-style-type: none;
     padding: 0;
   }
+
+
+/* shared chats */
+.contenitore_shared{
+    margin-top: 10px;
+    float: right;
+    width: 15vw;
+    min-width: 10px;
+    height: 90vh;
+    margin-right: 20px;
+    background-color: black;
+    border-radius: 20px 20px 20px 20px;
+    overflow: hidden;
+}
+.title_shared{
+    text-align: center;
+    font-size: 24px; /* Aumenta la dimensione del font */
+    font-weight: bold; /* Rende il testo in grassetto */
+    color: var(--shared-title-color);
+    padding: 5px;
+    z-index: 100;
+}
+
 

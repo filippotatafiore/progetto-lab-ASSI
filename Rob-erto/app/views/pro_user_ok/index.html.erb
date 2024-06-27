@@ -1,14 +1,20 @@
-<div>
-    <h1>Pagamento effetuato con SUCCESSO!</h1>
-    <p>Verrai reindirizzato alla schermata home a breve...</p>
-    <p>Ancora bloccato in questa schemata? clicca qui</p>
-    <p><%= link_to 'Torna alla schermata Home', root_path %></p>
+<div class="container z-index-1">
+        <div class="row justify-content-center custom-height">
+            <div class="col-12 col-md-8 col-lg-6">
+              <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
+                <div>
+                  <h1>Pagamento effetuato con SUCCESSO!</h1>
+                  <p>Verrai reindirizzato alla schermata home a breve...</p>
+                  <p>Ancora bloccato in questa schemata? clicca qui</p>
+                  <p><%= link_to 'Torna alla schermata Home', root_path %></p>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>
+<%= javascript_include_tag 'account' %>
 <script>
   setTimeout(function() {
     window.location.href = "<%= root_path %>";
   }, 3000); // 3000 millisecondi equivalgono a 3 secondi
 </script>
-<h1>USER ID:<%= session[:user_id] %></h1>
-<h1>NOME EMAIL: <%= session[:user_name] %>
-<h1> CURRENT USER <%= current_user %> </h1>

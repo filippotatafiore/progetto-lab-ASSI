@@ -1,4 +1,10 @@
 class ProfiloController < ApplicationController
+  def index
+    session[:pro_user_check] = User.where('users.id = ?', session[:user_id]).first.pro
+    @pro_user_check = session[:pro_user_check]
+  end
+
+
   def update_profile_image
     @user = current_user
     if @user.update(profile_image: params[:image])

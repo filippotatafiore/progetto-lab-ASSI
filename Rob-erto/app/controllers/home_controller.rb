@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
 
   def index
-
     if session[:first_visit].nil? || session[:first_visit] == true   # primo accesso alla pagina
       reset_session
       session[:first_visit] = false
@@ -30,10 +29,13 @@ class HomeController < ApplicationController
       session[:messages] = []
       session[:ai_model] = 'mixtral-8x7b-32768'
 
+
+
     end
 
 
     session[:user_name] = User.where('users.id = ?', session[:user_id]).first.nickname
+    session[:pro_user_check] = User.where('users.id = ?', session[:user_id]).first.pro
 
 
     if session[:user_name] != 'base_user'  # utente loggato
@@ -45,6 +47,7 @@ class HomeController < ApplicationController
       end
 
       @list_visibility = true    # visibilità della lista chat
+      @friendships = current_user.friendships.where(status: 1)
 
     else
       session[:primo_accesso_login] = 0
@@ -63,6 +66,8 @@ class HomeController < ApplicationController
     @chat_name = session[:chat_name]
     # nome dell'user corrente
     @user_name = session[:user_name]
+    # ruolo user corrente
+    @pro_user_check = session[:pro_user_check]
     # modello di IA
     @ai_model = session[:ai_model]
     # lista delle chat dell'utente loggato

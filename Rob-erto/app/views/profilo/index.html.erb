@@ -41,18 +41,20 @@
                     <button class="btn btn-primary" onclick="openPopup()">Cambia avatar!</button>
                 </div>
                 <br>
-                <p>Non ti piace il nickname?</p>
-                <div class="d-flex justify-content-center align-items-center">
-                    <%= form_with(model: current_user, url: update_nickname_path, method: :patch, local: true, html: { class: 'row g-3' }) do |form| %>
-                    <div class="col-auto">
-                        <%= form.label :nickname, class: 'visually-hidden' %>
-                        <%= form.text_field :nickname, class: 'form-control', placeholder: 'Nickname' %>
+                <% if @pro_user_check %>
+                    <p>Non ti piace il nickname?</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <%= form_with(model: current_user, url: update_nickname_path, method: :patch, local: true, html: { class: 'row g-3' }) do |form| %>
+                        <div class="col-auto">
+                            <%= form.label :nickname, class: 'visually-hidden' %>
+                            <%= form.text_field :nickname, class: 'form-control', placeholder: 'Nickname' %>
+                        </div>
+                        <div class="col-auto">
+                            <%= form.submit "Cambia nickname", class: "btn btn-primary mb-3" %>
+                        </div>
+                        <% end %>
                     </div>
-                    <div class="col-auto">
-                        <%= form.submit "Cambia nickname", class: "btn btn-primary mb-3" %>
-                    </div>
-                    <% end %>
-                </div>
+                <% end %>
                 <div class="border-top">
                     <p>Vuoi cambiare profilo?</p>
                     <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
@@ -63,14 +65,13 @@
                     <p>Non sei soddisfatto? Puoi cancellare l'account se vuoi ma poi non sarai mai più uno di noi.</p>
                     <%= button_to 'Elimina account', user_registration_path, method: :delete, class: "btn btn-danger",data: { confirm: 'Sei sicuro di voler eliminare il tuo account?' } %>
                 </div>
-                <% if !current_user.pro %> <!-- IMPORTANTE INVERTIRE CONDIZIONE BOOLEANA IF -->
+                <% if !current_user.pro %>
                     <div class="border-top mt-2 text-center">
                         <p class="py-1">Diventa un'utente pro e potrai utilizzare più funzionalità di Rob-erto come: </p>  
                         <ul class="d-inline-block text-left">
-                            <li>funzionalità uno</li>
-                            <li>funzionalità due</li>
+                            <li>Scegliere il modello di intelligenza artificiale</li>
+                            <li>Cambiare il colore del chatbox e del font e altro!</li>
                         </ul>
-                        
                             <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                 <input type="image" src="https://www.paypalobjects.com/it_IT/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
                                 <img alt="" border="0" src="https://www.sandbox.paypal.com/it_IT/i/scr/pixel.gif" width="1" height="1" />
@@ -83,6 +84,7 @@
                                 <input type="hidden" name="cmd" value="_xclick" />
                                 <input type="hidden" name="bn" value="DUNA8WP58E6NN:PP-BuyNowBF_P" />
                                 <input type="hidden" name="currency_code" value="EUR" />
+                                <input type="hidden" name="return" value="http://localhost:3000/pro_user_ok/index">
                                 <input type="hidden" name="cancel_return" value="http://localhost:3000/pro_user_failure/index">
                                 </form>
                     </div>

@@ -1,8 +1,16 @@
-<div>
-    <h1>Pagamento non riuscito</h1>
-    <p>Verrai reindirizzato alla schermata home a breve...</p>
-    <p>Ancora bloccato in questa schemata? clicca qui</p>
-    <p><%= link_to 'Torna alla schermata Home', root_path %></p>
+<div class="container z-index-1">
+        <div class="row justify-content-center custom-height">
+            <div class="col-12 col-md-8 col-lg-6">
+              <div class="p-3 mb-2 bg-dark text-white rounded custom-shadow text-center">
+                <div>
+                  <h1>Pagamento non riuscito</h1>
+                  <p>Verrai reindirizzato alla schermata home a breve...</p>
+                  <p>Ancora bloccato in questa schemata? clicca qui</p>
+                  <p><%= link_to 'Torna alla schermata Home', root_path %></p>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
   setTimeout(function() {

@@ -52,6 +52,7 @@ header{
 
     --user-input-background-color: rgb(43, 43, 43);
     --buttons-background-color: rgb(43, 43, 43);
+    --shared-title-color: #00CC99;
     --navbar-color: #00CC99;
 }
 
@@ -61,6 +62,7 @@ header{
 
     --user-input-background-color: rgb(20, 20, 20);
     --buttons-background-color: rgb(20, 20, 20);
+    --shared-title-color: #00CC99;
     --navbar-color: #006666;
 }
 

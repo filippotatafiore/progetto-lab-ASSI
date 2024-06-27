@@ -65,6 +65,7 @@
 
               <div class="window-visibility" id="settings-window">
                 <ul class="list-group">
+
                   <div class="list-group-item">
                     <% if @theme == 'dark' %>
                       <%= link_to image_tag('sun.svg', alt: "", id: "sun-img"), change_theme_path(theme: 'light'), class: "btn theme-img" %>
@@ -72,6 +73,7 @@
                       <%= link_to image_tag('moon.svg', alt: "", id: "moon-img"), change_theme_path(theme: 'dark'), class: "btn theme-img" %>
                     <% end %>
                   </div>
+
                   <div class="list-group-item btn-group dropstart">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Sfondo Chat</button>
                     <ul class="dropdown-menu">
@@ -81,6 +83,9 @@
                       <li><a class="dropdown-item" id="background-color-4"><span class="dot" style="background-color: rgb(20, 20, 20);"></span></a></li>
                     </ul>
                   </div>
+
+                  
+                  <% if @pro_user_check %>
                   <div class="list-group-item btn-group dropstart">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Colore Chatbox</button>
                     <ul class="dropdown-menu">
@@ -89,6 +94,7 @@
                       <li><a class="dropdown-item" id="chatbox-color-3"><span class="dot" style="background: linear-gradient(90deg, rgb(20, 20, 20) 50%, greenyellow 50%);"></span></a></li>
                     </ul>
                   </div>
+
                   <div class="list-group-item btn-group dropstart">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Font</button>
                     <ul class="dropdown-menu">
@@ -99,6 +105,7 @@
                       <li><a class="dropdown-item" id="font-5" style="font-family: Brush Script MT;">Brush Script MT</a></li>
                     </ul>
                   </div>
+
                   <div class="list-group-item btn-group dropstart">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Colore Font</button>
                     <ul class="dropdown-menu">
@@ -107,6 +114,9 @@
                       <li><a class="dropdown-item" id="font-color-3"><span class="dot" style="background-color: #0099FF;"></span></a></li>
                     </ul>
                   </div>
+                  <% end %>
+                  
+
                 </ul>
               </div>
 

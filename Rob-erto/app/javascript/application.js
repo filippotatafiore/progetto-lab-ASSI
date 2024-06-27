@@ -19,6 +19,10 @@ var chatbox_color_2 = document.getElementById('chatbox-color-2');
 var chatbox_color_3 = document.getElementById('chatbox-color-3');
 var selected_incoming_color = sessionStorage.getItem('incoming-color') || 'darkslategrey';
 var selected_outgoing_color = sessionStorage.getItem('outgoing-color') || 'goldenrod';
+if (!chatbox_color_1 && !chatbox_color_2 && !chatbox_color_3) {
+    selected_incoming_color = 'darkslategrey';
+    selected_outgoing_color = 'goldenrod';
+}
 
 // font
 var font_1 = document.getElementById('font-1');
@@ -27,12 +31,18 @@ var font_3 = document.getElementById('font-3');
 var font_4 = document.getElementById('font-4');
 var font_5 = document.getElementById('font-5');
 var selected_font = sessionStorage.getItem('font') || 'Arial';
+if (!font_1 && !font_2 && !font_3 && !font_4 && !font_5) {
+    selected_font = 'Arial';
+}
 
 //font color
 var font_color_1 = document.getElementById('font-color-1');
 var font_color_2 = document.getElementById('font-color-2');
 var font_color_3 = document.getElementById('font-color-3');
 var selected_font_color = sessionStorage.getItem('font-color') || 'white';
+if (!font_color_1 && !font_color_2 && !font_color_3) {
+    selected_font_color = 'white';
+}
 
 
 
