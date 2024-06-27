@@ -21,7 +21,6 @@ function funzioni(){
 
 
     content.innerHTML=`<h1 class="d-flex justify-content-center"> <b>Ruoli e diritto di accesso alle funzionalità</b> </h1>
-                        <hr class="linea">
                         <div class="mx-3 d-flex">Il sito offre 3 diversi ruoli con le loro rispettive funzionalità:</div>
                         <ul class="mx-3">
                             <li><b>Base user:</b> è l'utente che apre l'applicazione web senza registrarsi. Il Base user può:</li>
