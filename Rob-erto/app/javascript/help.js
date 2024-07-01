@@ -27,8 +27,8 @@ function funzioni(){
                             <div class="d-flex text-start">
                                 <ul>
                                     <li>comunicare con l'AI attraverso un'unica chat</li>
-                                    <li> traduzione dei messaggi</li>
-                                    <li>reinvio o l'eliminazione del messaggio.</li>
+                                    <li> tradurre dei messaggi</li>
+                                    <li>reinviare o eliminare i messaggi.</li>
                                 </ul>
                             </div>
                             <li><b>Registered user:</b> è l'utente registratosi nella sezione Profilo della barra di navigazione. Il Registered user può:</li>
@@ -43,7 +43,7 @@ function funzioni(){
                                     <li>cambiare o eliminare la sua immagine profilo</li>
                                 </ul>
                             </div>
-                            <li><b>Pro user:</b> è l'utente <i>registrato</i> che ha pagato per la versione pro nela sezione Profilo. Il Pro user può:</li>
+                            <li><b>Pro user:</b> è l'utente <i>registrato</i> che ha pagato per la versione pro nella sezione Profilo. Il Pro user può:</li>
                             <div class="d-flex text-start">
                                 <ul>
                                     <li>cambiare il modello dell'AI</li>
@@ -66,9 +66,9 @@ function creatori(){
     content.innerHTML=`<h1 class="d-flex justify-content-center"><b>Creatori di Rob-erto</b> </h1>
                         <div class=" d-flex justify-content-center p-4">
                             <h3>
-                            <div class=" p-2 mt-5">   Filippo Tatafiore     tatafiore.1934988@studenti.uniroma1.it<br></div>
-                            <div class=" p-2 mt-5">   Simone Nolè           nole.1940213@studenti.uniroma1.it<br></div>
-                            <div class=" p-2 mt-5">   Alessandro Cannone    cannone.2009032@studenti.uniroma1.it </div> 
+                            <div class=" p-2 mt-5">   Filippo Tatafiore      tatafiore.1934988@studenti.uniroma1.it<br></div>
+                            <div class=" p-2 mt-5">   Simone Nolè          nole.1940213@studenti.uniroma1.it<br></div>
+                            <div class=" p-2 mt-5">   Alessandro Cannone      cannone.2009032@studenti.uniroma1.it </div> 
                             </h3>
                         <div>
                         `;
