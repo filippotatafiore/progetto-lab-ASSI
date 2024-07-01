@@ -156,6 +156,9 @@ class HomeController < ApplicationController
           session[:response] = "Sto avendo dei problemi in questo momento. Prova a inviare nuovamente il messaggio."
         end
 
+        if params[:translate].present? and params[:translate] != "false"
+          session[:messages].pop
+        end
         # ---------------- invia messaggio all'AI ----------------
 
 
