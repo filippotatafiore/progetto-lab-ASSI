@@ -36,7 +36,7 @@ header{
   
 
 .letters {
-    color: rgb(45, 45, 45);
+    color: var(--letters-color);
     font-size: 18px;
     z-index: -1;
     position: absolute;
@@ -54,6 +54,7 @@ header{
     --buttons-background-color: rgb(43, 43, 43);
     --shared-title-color: #00CC99;
     --navbar-color: #00CC99;
+    --letters-color: rgb(43, 43, 43);
 }
 
 .dark{
@@ -64,6 +65,7 @@ header{
     --buttons-background-color: rgb(20, 20, 20);
     --shared-title-color: #00CC99;
     --navbar-color: #006666;
+    --letters-color: rgb(164, 164, 164);
 }
 
 
