@@ -41,6 +41,7 @@ function funzioni(){
                                     <li>mandare e ricevere richieste di amicizia ad altri registered user</li>
                                     <li>condividere le chat con i suoi amici</li>
                                     <li>cambiare o eliminare la sua immagine profilo</li>
+                                    <li>copiare un messaggio nella clipboard cliccando due volte sul messaggio</li>
                                 </ul>
                             </div>
                             <li><b>Pro user:</b> è l'utente <i>registrato</i> che ha pagato per la versione pro nella sezione Profilo. Il Pro user può:</li>
