@@ -105,7 +105,7 @@ class HomeController < ApplicationController
         request = Net::HTTP::Post.new(uri.request_uri)
 
         request["Content-Type"] = "application/json"
-        request["Authorization"] = "Bearer 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"
+        request["Authorization"] = ENV['API_KEY']
 
 
         messaggio = params[:user_input]     # messaggio da inviare
